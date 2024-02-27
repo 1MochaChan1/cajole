@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://davg5vfbwe3ol"]
+
+[ext_resource type="Script" path="res://levels/test_scene_1.gd" id="1_jkm3b"]
+[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="2_ek88o"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
+b = Vector2(531, 0)
+
+[node name="TestLevel1" type="Node2D" node_paths=PackedStringArray("spawn_point")]
+script = ExtResource("1_jkm3b")
+spawn_point = NodePath("SpawnPoint")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(29, 314)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_6fest")
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(180, 278)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 240.0
+offset_top = 213.0
+offset_right = 332.0
+offset_bottom = 253.0
+size_flags_horizontal = 4
+text = "Test Level 1"
+
+[node name="Door" parent="." instance=ExtResource("2_ek88o")]
+position = Vector2(485, 282)
