@@ -30,3 +30,4 @@ text = "Test Level 1"
 
 [node name="Door" parent="." instance=ExtResource("2_ek88o")]
 position = Vector2(485, 282)
+scene_path = "res://levels/TestScene2.tscn"

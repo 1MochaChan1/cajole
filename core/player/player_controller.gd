@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal interacted(interaction_type:Globals.INTERACTIONS, scene_data:SceneData)
+signal interacted(packed_scene:PackedScene, scene_data:SceneData)
 
 const GRAVITY = 10
 
@@ -18,14 +18,16 @@ var max_speed
 var curr_scene_data
 
 var _can_interact:bool = false
-var _interactable
+var _interactable:Globals.INTERACTIONS
 var _speed_multiplier:float = 50
+var _next_scene:PackedScene
 
 func _ready():
 	speed = walk_speed
 	max_speed = max_walk_speed
+	curr_scene_data = SceneData.new()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity.y += GRAVITY
 	if(velocity.x < 0):
 		flip_char(-1)
@@ -51,8 +53,10 @@ func handle_input():
 	if(Input.is_action_just_pressed("toggle flashlight")):
 		toggle_flashlight()
 	
-	if(Input.is_action_just_pressed("interact")):
-		interacted.emit(Globals.INTERACTIONS.DOOR, )
+	if(_can_interact and Input.is_action_just_pressed("interact")):
+		print(_interactable)
+		var scene = load("res://levels/TestScene2.tscn")
+		interacted.emit(_next_scene, curr_scene_data)
 	
 	move_and_slide()
 
@@ -63,13 +67,16 @@ func flip_char(dir):  # I Don't Know How This Works
 func toggle_flashlight():
 	if(ray_cast):
 		ray_cast.enabled = !ray_cast.enabled 
+	
+
+func _on_area_2d_body_entered(body):
+	if(body is Door):
+		_next_scene = body.leads_to
+		_interactable = Globals.INTERACTIONS.DOOR
+		_can_interact = true
 
 
-func _on_area_2d_area_entered(area):
-	if(area.name=="Door"):
-		print("Door")
-
-
-func _on_area_2d_area_exited(area):
-	if(area.name=="Door"):
-		print("Door")
+func _on_area_2d_body_exited(body):
+	if(body is Door):
+		_interactable = Globals.INTERACTIONS.DOOR
+		_can_interact = false

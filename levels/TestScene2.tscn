@@ -6,8 +6,9 @@
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_s43t7"]
 b = Vector2(531, 0)
 
-[node name="TestScene2" type="Node2D"]
+[node name="TestScene2" type="Node2D" node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_5hkfn")
+spawn_point = NodePath("SpawnPoint")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(29, 314)
@@ -30,3 +31,4 @@ text = "Test Level 2
 
 [node name="Door" parent="." instance=ExtResource("1_icc02")]
 position = Vector2(48, 281)
+scene_path = "res://levels/TestScene1.tscn"

@@ -13,6 +13,6 @@ func spawn_player():
 	player.global_position = spawn_point.global_position
 	player.interacted.connect(change_scene)
 
-func change_scene(new_scene:PackedScene, data:SceneData):
+func change_scene(new_scene:PackedScene, _data:SceneData):
 	get_tree().change_scene_to_packed(new_scene)
 	
