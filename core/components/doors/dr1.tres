@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DoorRes" load_steps=2 format=3 uid="uid://dhdh8diivv1rl"]
+
+[ext_resource type="Script" path="res://core/resources/res_door.gd" id="2_ssfvl"]
+
+[resource]
+script = ExtResource("2_ssfvl")
+leads_to = "res://levels/TestScene1.tscn"
+locked = true
+door_number = 1

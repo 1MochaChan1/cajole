@@ -10,7 +10,7 @@ var player_detected:bool = false
 var player_pos:Vector3
 
 func _ready():
-	print("")
+	pass
 
 
 func _physics_process(delta):

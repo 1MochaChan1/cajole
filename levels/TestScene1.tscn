@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=6 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/test_scene_1.gd" id="1_jkm3b"]
-[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="2_ek88o"]
+[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="3_0o4iw"]
+[ext_resource type="Resource" uid="uid://dt43vr5v4mqvx" path="res://core/components/doors/dr.tres" id="3_rn4t5"]
+[ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="4_ete7t"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
 b = Vector2(531, 0)
@@ -28,6 +30,10 @@ offset_bottom = 253.0
 size_flags_horizontal = 4
 text = "Test Level 1"
 
-[node name="Door" parent="." instance=ExtResource("2_ek88o")]
-position = Vector2(485, 282)
-scene_path = "res://levels/TestScene2.tscn"
+[node name="Door" parent="." instance=ExtResource("3_0o4iw")]
+position = Vector2(302, 277)
+res = ExtResource("3_rn4t5")
+
+[node name="Key" parent="." groups=["Keys"] instance=ExtResource("4_ete7t")]
+position = Vector2(85, 290)
+key_number = 1
