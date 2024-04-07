@@ -7,6 +7,9 @@ class_name CustomScene extends Node2D
 signal scene_changed(new_scene_data:SceneData)
 
 func _ready():
+	initialize()
+
+func initialize():
 	if(not (Globals.scene_data)):
 		Globals.scene_data = SceneData.new()
 	scene_data = Globals.scene_data

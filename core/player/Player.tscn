@@ -7,7 +7,7 @@
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast")]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 9
 script = ExtResource("1_qxx2l")
 walk_speed = 100.0
 max_walk_speed = 125.0
