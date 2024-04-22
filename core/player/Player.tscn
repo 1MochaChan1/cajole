@@ -1,48 +1,170 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdki3v3woreso"]
+[gd_scene load_steps=8 format=3 uid="uid://bdki3v3woreso"]
 
-[ext_resource type="Texture2D" uid="uid://dcgyb3k5axvwe" path="res://icon.svg" id="1_cxhar"]
 [ext_resource type="Script" path="res://core/player/player_controller.gd" id="1_qxx2l"]
+[ext_resource type="Texture2D" uid="uid://16o7jyg42ps4" path="res://assets/sprites/character/daniel_text.tres" id="2_phmsw"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ep8dv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_en7g5"]
+size = Vector2(8, 11.2656)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast")]
+[sub_resource type="Animation" id="Animation_j0c8k"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0, 4, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 16, 128, 16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:region_enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 8, 8, 8, 8, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ygmp2"]
+resource_name = "run"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 64, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:region_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 4, 4, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vrvff"]
+_data = {
+"idle": SubResource("Animation_j0c8k"),
+"run": SubResource("Animation_ygmp2")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fwbnl"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_qxx2l")
-walk_speed = 100.0
-max_walk_speed = 125.0
-sprint_speed = 150.0
-max_sprint_speed = 175.0
+walk_speed = 80.0
+max_walk_speed = 100.0
+sprint_speed = 125.0
+max_sprint_speed = 150.0
 ray_cast = NodePath("Ray")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.179688, 0.179688)
-texture = ExtResource("1_cxhar")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(19, -5)
-scale = Vector2(0.136719, 0.078125)
-texture = ExtResource("1_cxhar")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
-shape = SubResource("CapsuleShape2D_ep8dv")
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_en7g5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+offset = Vector2(0, -20)
+zoom = Vector2(10, 10)
+position_smoothing_speed = 10.0
+editor_draw_limits = true
 
 [node name="Ray" type="RayCast2D" parent="."]
 enabled = false
 target_position = Vector2(60, 0)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Interactable Detector" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 13
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -3)
-shape = SubResource("CapsuleShape2D_ep8dv")
+[node name="CollisionShape" type="CollisionShape2D" parent="Interactable Detector"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_en7g5")
 
-[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vrvff")
+}
+autoplay = "idle"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_fwbnl")
+texture = ExtResource("2_phmsw")
+hframes = 8
+region_enabled = true
+region_rect = Rect2(0, 16, 128, 16)
+
+[connection signal="area_shape_entered" from="Interactable Detector" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_entered" from="Interactable Detector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Interactable Detector" to="." method="_on_area_2d_body_exited"]

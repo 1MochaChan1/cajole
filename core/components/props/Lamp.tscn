@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbsqsg253fdlg"]
+
+[ext_resource type="Texture2D" uid="uid://dmgdgf8rrix5t" path="res://assets/sprites/environment/lamp.tres" id="1_u6sls"]
+[ext_resource type="Texture2D" uid="uid://bd5ean2x4thja" path="res://assets/sprites/environment/LightCone.png" id="2_q3lmo"]
+
+[sub_resource type="Gradient" id="Gradient_bc7hq"]
+offsets = PackedFloat32Array(0, 0.72428)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_co7of"]
+gradient = SubResource("Gradient_bc7hq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Lamp" type="Sprite2D"]
+texture = ExtResource("1_u6sls")
+
+[node name="Sphere" type="PointLight2D" parent="."]
+position = Vector2(6.52971, 7.92729)
+scale = Vector2(0.08, 0.08)
+color = Color(0.760784, 0.854902, 0.360784, 1)
+energy = 0.75
+texture = SubResource("GradientTexture2D_co7of")
+texture_scale = 12.0
+
+[node name="Cone" type="PointLight2D" parent="."]
+position = Vector2(-1.10362, 11.4561)
+scale = Vector2(0.122017, 0.102202)
+color = Color(0.760784, 0.854902, 0.360784, 1)
+texture = ExtResource("2_q3lmo")
+texture_scale = 0.75

@@ -1,6 +1,6 @@
 class_name Enemy extends CharacterBody2D
 
-signal attacked
+signal player_killed
 
 const GRAVITY = 10
 
@@ -35,6 +35,8 @@ func detect_player():
 		var body = ray_cast.get_collider()
 		if (body is Player):
 			move_towards_player()
+	else:
+		velocity.x = lerp(velocity.x, 0.0, 0.01)
 
 func move_towards_player():
 	var x = look_dir * walk_speed * _speed_multiplier
@@ -43,3 +45,8 @@ func move_towards_player():
 	
 func attack():
 	pass
+
+
+func _on_area_2d_body_entered(body):
+	if body is Player:
+		player_killed.emit()

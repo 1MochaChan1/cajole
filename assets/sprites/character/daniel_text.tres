@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://16o7jyg42ps4"]
+
+[ext_resource type="Texture2D" uid="uid://bg08eik8cmh71" path="res://assets/sprites/character/daniel_chettiar.png" id="1_22mff"]
+[ext_resource type="Texture2D" uid="uid://dp6f4md6oo4jt" path="res://assets/sprites/character/daniel_chettiar_n.png" id="2_dc81o"]
+
+[resource]
+diffuse_texture = ExtResource("1_22mff")
+normal_texture = ExtResource("2_dc81o")

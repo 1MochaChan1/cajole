@@ -9,6 +9,7 @@ const GRAVITY = 10
 @export var sprint_speed:float
 @export var max_sprint_speed:float
 @export var ray_cast:RayCast2D
+@export var animation_player:AnimationPlayer
 
 var walk_dir = 1
 var jump_strength = 5
@@ -19,6 +20,7 @@ var curr_scene_data:SceneData
 
 var _can_interact:bool = false
 var _changing_scene:bool = false
+var _sprinting:bool = false # using for animation
 var _interaction:Globals.INTERACTIONS
 var _speed_multiplier:float = 50
 var _next_scene:PackedScene
@@ -31,6 +33,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
+	handle_animation()
 	velocity.y += GRAVITY
 	if(velocity.x < 0):
 		flip_char(-1)
@@ -46,10 +49,12 @@ func handle_input():
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 	if(Input.is_action_just_pressed("sprint")):
+		_sprinting = true
 		speed = sprint_speed
 		max_speed = max_sprint_speed
 	
 	if(Input.is_action_just_released("sprint")):
+		_sprinting = false
 		speed = walk_speed
 		max_speed = max_walk_speed
 	
@@ -62,6 +67,17 @@ func handle_input():
 	
 	if(!_changing_scene):
 		move_and_slide()
+
+func handle_animation():
+	if(abs(velocity.x) > 1):
+		animation_player.play('run')
+	else:
+		animation_player.play('idle')
+	
+	if(_sprinting):
+		animation_player.speed_scale = 1.5
+	else:
+		animation_player.speed_scale = 1
 
 func handle_interact(interaction:Globals.INTERACTIONS):
 	match interaction:

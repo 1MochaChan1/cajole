@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bspqs0rv2mclx"]
+[gd_scene load_steps=5 format=3 uid="uid://bspqs0rv2mclx"]
 
 [ext_resource type="Texture2D" uid="uid://dcgyb3k5axvwe" path="res://icon.svg" id="1_esbuq"]
 [ext_resource type="Script" path="res://core/enemy/enemy_controller.gd" id="1_tt6vv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yavun"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxrh4"]
+size = Vector2(16, 9)
+
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast")]
 collision_layer = 4
 script = ExtResource("1_tt6vv")
 walk_speed = 80.0
 max_speed = 100.0
-lerp_speed = 0.025
 ray_cast = NodePath("RayCast2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,5 +29,15 @@ position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_yavun")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(150, 0)
+target_position = Vector2(100, 0)
 collision_mask = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(19, -5.5)
+shape = SubResource("RectangleShape2D_mxrh4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
