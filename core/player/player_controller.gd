@@ -10,6 +10,7 @@ const GRAVITY = 10
 @export var max_sprint_speed:float
 @export var ray_cast:RayCast2D
 @export var animation_player:AnimationPlayer
+@export var camera:Camera2D
 
 var walk_dir = 1
 var jump_strength = 5
@@ -24,14 +25,16 @@ var _sprinting:bool = false # using for animation
 var _interaction:Globals.INTERACTIONS
 var _speed_multiplier:float = 50
 var _next_scene:PackedScene
+var _curr_scene:CustomScene
 
 func _ready():
 	speed = walk_speed
 	max_speed = max_walk_speed
-	curr_scene_data = self.get_parent().scene_data
+	_curr_scene = self.get_parent()
+	curr_scene_data = _curr_scene.scene_data
+	set_camera_bounds()
 
-	
-	
+
 func _physics_process(_delta):
 	handle_animation()
 	velocity.y += GRAVITY
@@ -68,17 +71,6 @@ func handle_input():
 	if(!_changing_scene):
 		move_and_slide()
 
-func handle_animation():
-	if(abs(velocity.x) > 1):
-		animation_player.play('run')
-	else:
-		animation_player.play('idle')
-	
-	if(_sprinting):
-		animation_player.speed_scale = 1.5
-	else:
-		animation_player.speed_scale = 1
-
 func handle_interact(interaction:Globals.INTERACTIONS):
 	match interaction:
 		Globals.INTERACTIONS.DOOR:
@@ -90,6 +82,24 @@ func handle_interact(interaction:Globals.INTERACTIONS):
 		
 		Globals.INTERACTIONS.CLOSET:
 			pass
+
+func handle_animation():
+	if(abs(velocity.x) > 1):
+		animation_player.play('run')
+	else:
+		animation_player.play('idle')
+	
+	if(_sprinting):
+		animation_player.speed_scale = 1.5
+	else:
+		animation_player.speed_scale = 1
+
+func set_camera_bounds():
+	camera.limit_top = _curr_scene.camera_bounds_tl.global_position.y
+	camera.limit_left = _curr_scene.camera_bounds_tl.global_position.x
+	camera.limit_bottom = _curr_scene.camer_bounds_br.global_position.y
+	camera.limit_right = _curr_scene.camer_bounds_br.global_position.x
+	
 
 func flip_char(dir):  # I Don't Know How This Works
 	scale.x = lerp(scale.x,  scale.y * dir, lerp_speed) # See How It Works in Debug

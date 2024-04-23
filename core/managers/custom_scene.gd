@@ -4,6 +4,9 @@ class_name CustomScene extends Node2D
 @export var player:Player
 @export var scene_data:SceneData
 
+@export var camera_bounds_tl:Marker2D
+@export var camer_bounds_br:Marker2D
+
 signal scene_changed(new_scene_data:SceneData)
 
 func _ready():

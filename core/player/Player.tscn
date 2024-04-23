@@ -118,7 +118,7 @@ _data = {
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fwbnl"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player", "camera")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_qxx2l")
@@ -128,13 +128,14 @@ sprint_speed = 125.0
 max_sprint_speed = 150.0
 ray_cast = NodePath("Ray")
 animation_player = NodePath("AnimationPlayer")
+camera = NodePath("Camera2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_en7g5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -20)
+offset = Vector2(0, -10)
 zoom = Vector2(10, 10)
 position_smoothing_speed = 10.0
 editor_draw_limits = true

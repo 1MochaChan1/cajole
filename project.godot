@@ -18,11 +18,18 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://core/autoload.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [display]
 
+window/size/viewport_width=400
+window/size/viewport_height=200
 window/size/mode=3
 window/canvas_textures/default_texture_filter=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [input]
 
