@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=12 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/test_scene_1.gd" id="1_jkm3b"]
 [ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="2_b84ss"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c2vw8vqmt6631" path="res://assets/sprites/environment/BG.png" id="7_ar1lm"]
 [ext_resource type="Texture2D" uid="uid://cw8pbmgikw220" path="res://assets/sprites/environment/MG.png" id="8_curc6"]
 [ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="9_vjcby"]
-[ext_resource type="PackedScene" uid="uid://bdki3v3woreso" path="res://core/player/Player.tscn" id="10_7by32"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
 b = Vector2(1000.1, -0.554733)
@@ -166,9 +165,6 @@ offset = Vector2(200, 0)
 visible = false
 z_index = -100
 color = Color(0.171686, 0.225882, 0.280106, 1)
-
-[node name="Player" parent="." instance=ExtResource("10_7by32")]
-position = Vector2(66.8174, 70.2406)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qyx8m")
