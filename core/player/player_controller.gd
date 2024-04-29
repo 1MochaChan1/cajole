@@ -11,6 +11,7 @@ const GRAVITY = 10
 @export var ray_cast:RayCast2D
 @export var animation_player:AnimationPlayer
 @export var camera:Camera2D
+@export var actionable_detector:Area2D
 
 var walk_dir = 1
 var jump_strength = 5
@@ -26,6 +27,7 @@ var _interaction:Globals.INTERACTIONS
 var _speed_multiplier:float = 50
 var _next_scene:PackedScene
 var _curr_scene:CustomScene
+var x_axis:float
 
 func _ready():
 	speed = walk_speed
@@ -36,20 +38,23 @@ func _ready():
 
 
 func _physics_process(_delta):
+	
+	
+	velocity.x = lerp(velocity.x, x_axis, lerp_speed)
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	handle_animation()
 	velocity.y += GRAVITY
 	if(velocity.x < 0):
 		flip_char(-1)
 	elif (velocity.x > 0):
 		flip_char(1)
-	handle_input()
+	if(!_changing_scene):
+		move_and_slide()
 
-func handle_input():
-	var x = (
+func _unhandled_input(event:InputEvent):
+	x_axis = (
 		Input.get_action_strength("right") - Input.get_action_strength("left")
 		) * speed * _speed_multiplier
-	velocity.x = lerp(velocity.x, x, lerp_speed)
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 	if(Input.is_action_just_pressed("sprint")):
 		_sprinting = true
@@ -63,23 +68,22 @@ func handle_input():
 	
 	if(Input.is_action_just_pressed("toggle flashlight")):
 		toggle_flashlight()
+		
+	if(Input.is_action_just_pressed("interact")):
+		var actionables: = actionable_detector.get_overlapping_areas()
+		if(actionables.size() > 0):
+			actionables[0].action()
 	
 	if(_can_interact and Input.is_action_just_pressed("interact")):
 		if(_interaction != null):
 			handle_interact(_interaction)
-	
-	if(!_changing_scene):
-		move_and_slide()
+
 
 func handle_interact(interaction:Globals.INTERACTIONS):
 	match interaction:
 		Globals.INTERACTIONS.DOOR:
 			_changing_scene = true
 			opened_door.emit(_next_scene, curr_scene_data)
-		
-		Globals.INTERACTIONS.KEYS:
-			pass
-		
 		Globals.INTERACTIONS.CLOSET:
 			pass
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdki3v3woreso"]
+[gd_scene load_steps=9 format=3 uid="uid://bdki3v3woreso"]
 
 [ext_resource type="Script" path="res://core/player/player_controller.gd" id="1_qxx2l"]
 [ext_resource type="Texture2D" uid="uid://16o7jyg42ps4" path="res://assets/sprites/character/daniel_text.tres" id="2_phmsw"]
@@ -118,7 +118,10 @@ _data = {
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fwbnl"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player", "camera")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkeny"]
+size = Vector2(10.5, 14)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player", "camera", "actionable_detector")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_qxx2l")
@@ -129,6 +132,7 @@ max_sprint_speed = 150.0
 ray_cast = NodePath("Ray")
 animation_player = NodePath("AnimationPlayer")
 camera = NodePath("Camera2D")
+actionable_detector = NodePath("ActionableDetector")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -164,6 +168,14 @@ texture = ExtResource("2_phmsw")
 hframes = 8
 region_enabled = true
 region_rect = Rect2(0, 16, 128, 16)
+
+[node name="ActionableDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableDetector"]
+position = Vector2(4.75, 1)
+shape = SubResource("RectangleShape2D_xkeny")
 
 [connection signal="area_shape_entered" from="Interactable Detector" to="." method="_on_area_2d_area_shape_entered"]
 [connection signal="body_entered" from="Interactable Detector" to="." method="_on_area_2d_body_entered"]
