@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://cigp2bccqb1xn"
+path="res://.godot/imported/stranger.dialogue-d0bfb734010037b9ef3cdf450751cb8e.tres"
+
+[deps]
+
+source_file="res://core/dialogues/stranger.dialogue"
+dest_files=["res://.godot/imported/stranger.dialogue-d0bfb734010037b9ef3cdf450751cb8e.tres"]
+
+[params]
+
+defaults=true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=13 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/test_scene_1.gd" id="1_jkm3b"]
 [ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="2_b84ss"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="5_rr8dh"]
 [ext_resource type="Texture2D" uid="uid://c2vw8vqmt6631" path="res://assets/sprites/environment/BG.png" id="7_ar1lm"]
 [ext_resource type="Texture2D" uid="uid://cw8pbmgikw220" path="res://assets/sprites/environment/MG.png" id="8_curc6"]
+[ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_6kh1o"]
 [ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="9_vjcby"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
@@ -49,12 +50,17 @@ position = Vector2(844.099, 48.864)
 scale = Vector2(1, 1.25)
 texture = ExtResource("5_rr8dh")
 
+[node name="House5" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(1026.16, 48.864)
+scale = Vector2(1, 1.25)
+texture = ExtResource("5_rr8dh")
+
 [node name="Lights" type="Node2D" parent="Platform"]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Platform/Lights"]
 position = Vector2(300, 0)
-color = Color(0.172833, 0.172833, 0.172833, 1)
-energy = 0.75
+color = Color(0.133196, 0.133196, 0.133196, 1)
+energy = 0.85
 blend_mode = 2
 
 [node name="Lamp" parent="Platform/Lights" instance=ExtResource("2_uhn4r")]
@@ -161,11 +167,6 @@ texture = ExtResource("9_vjcby")
 centered = false
 offset = Vector2(200, 0)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-z_index = -100
-color = Color(0.171686, 0.225882, 0.280106, 1)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qyx8m")
 
@@ -174,4 +175,7 @@ environment = SubResource("Environment_qyx8m")
 [node name="TopLeft" type="Marker2D" parent="CameraBounds"]
 
 [node name="BottomRight" type="Marker2D" parent="CameraBounds"]
-position = Vector2(600.043, 100)
+position = Vector2(793.264, 100)
+
+[node name="Stranger" parent="." instance=ExtResource("9_6kh1o")]
+position = Vector2(358.895, 70.1555)
