@@ -13,7 +13,7 @@ const GRAVITY = 10
 @export var camera:Camera2D
 @export var actionable_detector:Area2D
 @export var label:Label
-
+@export var _actionable_diag_caller:Actionable
 
 var jump_strength = 5
 var lerp_speed = 0.25 
@@ -82,6 +82,10 @@ func _unhandled_input(_event:InputEvent):
 
 func handle_interact(interaction:Globals.INTERACTIONS):
 	match interaction:
+		Globals.INTERACTIONS.DOOR_LOCKED:
+			_actionable_diag_caller.dialogue_start = "door_locked"
+			_actionable_diag_caller.action()
+			_can_interact=false
 		Globals.INTERACTIONS.DOOR:
 			_changing_scene = true
 			opened_door.emit(_next_scene, curr_scene_data)
@@ -139,6 +143,9 @@ func _on_area_2d_body_entered(body):
 		else:
 			var keys = curr_scene_data.keys_on_player
 			if(body.res.locked and not(body.res.door_number in keys)):
+				_can_interact=true
+				_interaction = Globals.INTERACTIONS.DOOR_LOCKED
+				
 				return
 			elif (body.res.locked and body.res.door_number in keys):
 				body.res.locked = false

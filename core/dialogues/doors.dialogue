@@ -1,0 +1,11 @@
+~ door_locked
+
+You: It's Locked.
+
+=> END
+
+~ used_key
+
+You: I used a key to open the door.
+
+=> END

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=21 format=3 uid="uid://c135ki1wh8yif"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="6_3cav0"]
 [ext_resource type="Script" path="res://core/resources/res_door.gd" id="6_aegw6"]
 [ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="7_7ttyn"]
+[ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="7_u4iu6"]
 [ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="9_5328g"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="10_wtst4"]
 [ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_bscw1"]
@@ -20,8 +21,15 @@ keys_on_player = Array[int]([])
 [sub_resource type="Resource" id="Resource_gxisv"]
 script = ExtResource("6_aegw6")
 leads_to = "res://levels/VillageEntrance.tscn"
+locked = true
+door_number = 2
+passable = false
+
+[sub_resource type="Resource" id="Resource_u6b7c"]
+script = ExtResource("6_aegw6")
+leads_to = "res://levels/VillageEntrance.tscn"
 locked = false
-door_number = 0
+door_number = 3
 passable = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
@@ -72,8 +80,8 @@ position = Vector2(0, 95)
 
 [node name="InteriorBackground" type="Sprite2D" parent="Platform/BG"]
 texture_repeat = 2
-position = Vector2(300, -4)
-scale = Vector2(1.52, 1)
+position = Vector2(298, -4)
+scale = Vector2(1.53, 1)
 texture = ExtResource("7_7ttyn")
 
 [node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
@@ -92,13 +100,21 @@ blend_mode = 2
 
 [node name="Doors" type="Node2D" parent="Platform"]
 
-[node name="Door" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
-position = Vector2(83, -4)
+[node name="Door2" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
+position = Vector2(200, -4)
 res = SubResource("Resource_gxisv")
 
-[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door"]
+[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door2"]
 position = Vector2(-1, 8)
 texture = ExtResource("6_3cav0")
+
+[node name="Door3" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
+position = Vector2(342, -3)
+res = SubResource("Resource_u6b7c")
+
+[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door3"]
+position = Vector2(-1, 8)
+texture = ExtResource("7_u4iu6")
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 position = Vector2(178, 14)

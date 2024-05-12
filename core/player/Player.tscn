@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdki3v3woreso"]
+[gd_scene load_steps=13 format=3 uid="uid://bdki3v3woreso"]
 
 [ext_resource type="Script" path="res://core/player/player_controller.gd" id="1_qxx2l"]
 [ext_resource type="Texture2D" uid="uid://16o7jyg42ps4" path="res://assets/sprites/character/daniel_text.tres" id="2_phmsw"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="3_v5p7h"]
+[ext_resource type="Resource" uid="uid://gj7fpd5dggmt" path="res://core/dialogues/doors.dialogue" id="4_1xx27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_en7g5"]
 size = Vector2(8, 11.6328)
@@ -124,7 +126,9 @@ size = Vector2(10.5, 14)
 [sub_resource type="LabelSettings" id="LabelSettings_sompf"]
 font_size = 8
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player", "camera", "actionable_detector", "label")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vqt2"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast", "animation_player", "camera", "actionable_detector", "label", "_actionable_diag_caller")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_qxx2l")
@@ -137,6 +141,7 @@ animation_player = NodePath("AnimationPlayer")
 camera = NodePath("Camera2D")
 actionable_detector = NodePath("ActionableDetector")
 label = NodePath("Label")
+_actionable_diag_caller = NodePath("Actionable")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -199,6 +204,13 @@ label_settings = SubResource("LabelSettings_sompf")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="Actionable" parent="." instance=ExtResource("3_v5p7h")]
+collision_layer = 0
+dialogue_resource = ExtResource("4_1xx27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actionable"]
+shape = SubResource("RectangleShape2D_4vqt2")
 
 [connection signal="area_shape_entered" from="Interactable Detector" to="." method="_on_area_2d_area_shape_entered"]
 [connection signal="body_entered" from="Interactable Detector" to="." method="_on_area_2d_body_entered"]
