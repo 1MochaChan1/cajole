@@ -1,14 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=16 format=3 uid="uid://davg5vfbwe3ol"]
 
-[ext_resource type="Script" path="res://levels/test_scene_1.gd" id="1_jkm3b"]
-[ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="2_b84ss"]
-[ext_resource type="PackedScene" uid="uid://bbsqsg253fdlg" path="res://core/components/props/Lamp.tscn" id="2_uhn4r"]
-[ext_resource type="Texture2D" uid="uid://c4jky4ccutd4a" path="res://assets/sprites/environment/house2.tres" id="5_2j0c7"]
-[ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="5_rr8dh"]
-[ext_resource type="Texture2D" uid="uid://c2vw8vqmt6631" path="res://assets/sprites/environment/BG.png" id="7_ar1lm"]
-[ext_resource type="Texture2D" uid="uid://cw8pbmgikw220" path="res://assets/sprites/environment/MG.png" id="8_curc6"]
-[ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_6kh1o"]
-[ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="9_vjcby"]
+[ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
+[ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
+[ext_resource type="Texture2D" uid="uid://c4jky4ccutd4a" path="res://assets/sprites/environment/house2.tres" id="3_njn0j"]
+[ext_resource type="PackedScene" uid="uid://bbsqsg253fdlg" path="res://core/components/props/Lamp.tscn" id="4_l6fws"]
+[ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="5_ufjoc"]
+[ext_resource type="Texture2D" uid="uid://c2vw8vqmt6631" path="res://assets/sprites/environment/BG.png" id="6_kr0vc"]
+[ext_resource type="Texture2D" uid="uid://cw8pbmgikw220" path="res://assets/sprites/environment/MG.png" id="7_4tjp5"]
+[ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="8_e0tym"]
+[ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_bth54"]
+[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
+[ext_resource type="Script" path="res://core/resources/res_door.gd" id="11_vlens"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
 b = Vector2(1000.1, -0.554733)
@@ -19,8 +21,15 @@ b = Vector2(0, 80.5)
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
 
+[sub_resource type="Resource" id="Resource_i2ws6"]
+script = ExtResource("11_vlens")
+leads_to = "res://levels/VillageDeeper.tscn"
+locked = false
+door_number = 0
+passable = false
+
 [node name="TestLevel1" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
-script = ExtResource("1_jkm3b")
+script = ExtResource("1_orgjk")
 spawn_point = NodePath("SpawnPoint")
 camera_bounds_tl = NodePath("CameraBounds/TopLeft")
 camer_bounds_br = NodePath("CameraBounds/BottomRight")
@@ -29,31 +38,32 @@ camer_bounds_br = NodePath("CameraBounds/BottomRight")
 position = Vector2(-300, 0)
 
 [node name="Props" type="Node2D" parent="Platform"]
+visible = false
 
 [node name="House1" type="Sprite2D" parent="Platform/Props"]
 position = Vector2(559.211, 46.7594)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_rr8dh")
+texture = ExtResource("2_5ola1")
 
 [node name="House2" type="Sprite2D" parent="Platform/Props"]
 position = Vector2(700, 55.6163)
 scale = Vector2(-1.5, 1.5)
-texture = ExtResource("5_2j0c7")
+texture = ExtResource("3_njn0j")
 
 [node name="House3" type="Sprite2D" parent="Platform/Props"]
 position = Vector2(438.835, 58.606)
 scale = Vector2(-1.25, 1.5)
-texture = ExtResource("5_2j0c7")
+texture = ExtResource("3_njn0j")
 
 [node name="House4" type="Sprite2D" parent="Platform/Props"]
 position = Vector2(844.099, 48.864)
 scale = Vector2(1, 1.25)
-texture = ExtResource("5_rr8dh")
+texture = ExtResource("2_5ola1")
 
 [node name="House5" type="Sprite2D" parent="Platform/Props"]
 position = Vector2(1026.16, 48.864)
 scale = Vector2(1, 1.25)
-texture = ExtResource("5_rr8dh")
+texture = ExtResource("2_5ola1")
 
 [node name="Lights" type="Node2D" parent="Platform"]
 
@@ -63,22 +73,22 @@ color = Color(0.133196, 0.133196, 0.133196, 1)
 energy = 0.85
 blend_mode = 2
 
-[node name="Lamp" parent="Platform/Lights" instance=ExtResource("2_uhn4r")]
+[node name="Lamp" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
 position = Vector2(336.92, 47.7341)
 rotation = 3.14159
 scale = Vector2(-1.25, -1.5)
 
-[node name="Lamp2" parent="Platform/Lights" instance=ExtResource("2_uhn4r")]
+[node name="Lamp2" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
 position = Vector2(473.227, 46.8432)
 rotation = 3.30024
 scale = Vector2(1.5, -1.5)
 
-[node name="Lamp3" parent="Platform/Lights" instance=ExtResource("2_uhn4r")]
+[node name="Lamp3" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
 position = Vector2(653.189, 49.5159)
 rotation = 3.09519
 scale = Vector2(-1.5, -1.5)
 
-[node name="Lamp4" parent="Platform/Lights" instance=ExtResource("2_uhn4r")]
+[node name="Lamp4" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
 position = Vector2(772.569, 57.0885)
 rotation = 2.87979
 scale = Vector2(1.5, -1.5)
@@ -89,21 +99,21 @@ metadata/_edit_group_ = true
 
 [node name="Platform2" type="Sprite2D" parent="Platform/PlatformSprites"]
 position = Vector2(600, 0)
-texture = ExtResource("2_b84ss")
+texture = ExtResource("5_ufjoc")
 centered = false
 
 [node name="Platform5" type="Sprite2D" parent="Platform/PlatformSprites"]
 position = Vector2(800, 0)
-texture = ExtResource("2_b84ss")
+texture = ExtResource("5_ufjoc")
 centered = false
 
 [node name="Platform3" type="Sprite2D" parent="Platform/PlatformSprites"]
-texture = ExtResource("2_b84ss")
+texture = ExtResource("5_ufjoc")
 centered = false
 offset = Vector2(200, 0)
 
 [node name="Platform4" type="Sprite2D" parent="Platform/PlatformSprites"]
-texture = ExtResource("2_b84ss")
+texture = ExtResource("5_ufjoc")
 centered = false
 offset = Vector2(400, 0)
 
@@ -111,11 +121,11 @@ offset = Vector2(400, 0)
 position = Vector2(300, 80.566)
 shape = SubResource("SegmentShape2D_6fest")
 
-[node name="PlatformCollider2" type="CollisionShape2D" parent="Platform"]
+[node name="LeftWall" type="CollisionShape2D" parent="Platform"]
 position = Vector2(300, 0)
 shape = SubResource("SegmentShape2D_05eiu")
 
-[node name="PlatformCollider3" type="CollisionShape2D" parent="Platform"]
+[node name="Right InvisWall" type="CollisionShape2D" parent="Platform"]
 position = Vector2(900.043, 0)
 shape = SubResource("SegmentShape2D_05eiu")
 
@@ -127,17 +137,17 @@ gizmo_extents = 8.5
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
 z_index = -100
-color = Color(0.201979, 0.262843, 0.323756, 1)
+color = Color(0.481789, 0.481789, 0.481789, 1)
 
 [node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(200, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
-texture = ExtResource("7_ar1lm")
+texture = ExtResource("6_kr0vc")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/BG"]
-texture = ExtResource("7_ar1lm")
+texture = ExtResource("6_kr0vc")
 centered = false
 offset = Vector2(200, 0)
 
@@ -146,11 +156,11 @@ motion_scale = Vector2(0.25, 1)
 motion_mirroring = Vector2(200, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MG"]
-texture = ExtResource("8_curc6")
+texture = ExtResource("7_4tjp5")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/MG"]
-texture = ExtResource("8_curc6")
+texture = ExtResource("7_4tjp5")
 centered = false
 offset = Vector2(200, 0)
 
@@ -159,11 +169,11 @@ motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(200, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MG2"]
-texture = ExtResource("9_vjcby")
+texture = ExtResource("8_e0tym")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/MG2"]
-texture = ExtResource("9_vjcby")
+texture = ExtResource("8_e0tym")
 centered = false
 offset = Vector2(200, 0)
 
@@ -177,5 +187,9 @@ environment = SubResource("Environment_qyx8m")
 [node name="BottomRight" type="Marker2D" parent="CameraBounds"]
 position = Vector2(793.264, 100)
 
-[node name="Stranger" parent="." instance=ExtResource("9_6kh1o")]
+[node name="Stranger" parent="." instance=ExtResource("9_bth54")]
 position = Vector2(358.895, 70.1555)
+
+[node name="Door" parent="." instance=ExtResource("10_kp8rf")]
+position = Vector2(600.043, 51.5)
+res = SubResource("Resource_i2ws6")

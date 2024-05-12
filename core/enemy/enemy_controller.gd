@@ -18,7 +18,7 @@ func _ready():
 	pass
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity.y += GRAVITY
 	if(player):
 		detect_player()

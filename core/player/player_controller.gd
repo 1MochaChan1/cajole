@@ -12,8 +12,9 @@ const GRAVITY = 10
 @export var animation_player:AnimationPlayer
 @export var camera:Camera2D
 @export var actionable_detector:Area2D
+@export var label:Label
 
-var walk_dir = 1
+
 var jump_strength = 5
 var lerp_speed = 0.25 
 var speed
@@ -38,8 +39,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	
-	
+	handle_label()
 	velocity.x = lerp(velocity.x, x_axis, lerp_speed)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	handle_animation()
@@ -51,7 +51,7 @@ func _physics_process(_delta):
 	if(!_changing_scene):
 		move_and_slide()
 
-func _unhandled_input(event:InputEvent):
+func _unhandled_input(_event:InputEvent):
 	x_axis = (
 		Input.get_action_strength("right") - Input.get_action_strength("left")
 		) * speed * _speed_multiplier
@@ -73,6 +73,7 @@ func _unhandled_input(event:InputEvent):
 		var actionables: = actionable_detector.get_overlapping_areas()
 		if(actionables.size() > 0):
 			actionables[0].action()
+	
 	
 	if(_can_interact and Input.is_action_just_pressed("interact")):
 		if(_interaction != null):
@@ -98,39 +99,62 @@ func handle_animation():
 	else:
 		animation_player.speed_scale = 1
 
+func handle_label():
+	var actionables: = actionable_detector.get_overlapping_areas()
+	if(actionables.size() > 0):
+		label.show()
+	
+	if(velocity.x < 0):
+		label.scale.x = label.scale.y*-1
+	elif (velocity.x > 0):
+		label.scale.x = label.scale.y*1
+	
+	
+
 func set_camera_bounds():
-	camera.limit_top = _curr_scene.camera_bounds_tl.global_position.y
-	camera.limit_left = _curr_scene.camera_bounds_tl.global_position.x
-	camera.limit_bottom = _curr_scene.camer_bounds_br.global_position.y
-	camera.limit_right = _curr_scene.camer_bounds_br.global_position.x
+	camera.limit_top = int(_curr_scene.camera_bounds_tl.global_position.y)
+	camera.limit_left = int(_curr_scene.camera_bounds_tl.global_position.x)
+	camera.limit_bottom = int(_curr_scene.camer_bounds_br.global_position.y)
+	camera.limit_right = int(_curr_scene.camer_bounds_br.global_position.x)
 	
 
 func flip_char(dir):  # I Don't Know How This Works
 	scale.x = lerp(scale.x,  scale.y * dir, lerp_speed) # See How It Works in Debug
 
+
 func toggle_flashlight():
+	# WHY THE FUCK YOU USING A RAYCAST?!!
 	if(ray_cast):
 		ray_cast.enabled = !ray_cast.enabled 
 
+
+# When enter door collision
 func _on_area_2d_body_entered(body):
 	if(body is Door):
-		var keys = curr_scene_data.keys_on_player
-		if(body.res.locked and not(body.res.door_number in keys)):
-			return
-		elif (body.res.locked and body.res.door_number in keys):
-			body.res.locked = false
-			
-		_next_scene = body.leads_to
-		_interaction = Globals.INTERACTIONS.DOOR
-		_can_interact = true
+		label.show()
+		if (body.res.passable):
+			_next_scene = body.leads_to
+			_interaction = Globals.INTERACTIONS.DOOR
+			_can_interact = true
+		else:
+			var keys = curr_scene_data.keys_on_player
+			if(body.res.locked and not(body.res.door_number in keys)):
+				return
+			elif (body.res.locked and body.res.door_number in keys):
+				body.res.locked = false
+				
+			_next_scene = body.leads_to
+			_interaction = Globals.INTERACTIONS.DOOR
+			_can_interact = true
 
-
+# When exit door collision
 func _on_area_2d_body_exited(body):
 	if(body is Door):
+		label.hide()
 		_interaction = Globals.INTERACTIONS.DOOR
 		_can_interact = false
 
-
+# When enter key collision
 func _on_area_2d_area_shape_entered(
 	_area_rid, area, area_shape_index, _local_shape_index):
 	var node = area.shape_owner_get_owner(area_shape_index).get_node("../..")

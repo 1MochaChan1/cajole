@@ -1,0 +1,132 @@
+[gd_scene load_steps=19 format=3 uid="uid://c135ki1wh8yif"]
+
+[ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
+[ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
+[ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="3_u0kxo"]
+[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
+[ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="6_3cav0"]
+[ext_resource type="Script" path="res://core/resources/res_door.gd" id="6_aegw6"]
+[ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="7_7ttyn"]
+[ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="9_5328g"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="10_wtst4"]
+[ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_bscw1"]
+
+[sub_resource type="Resource" id="Resource_ejho4"]
+script = ExtResource("2_08oye")
+keys_on_player = Array[int]([])
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
+
+[sub_resource type="Resource" id="Resource_gxisv"]
+script = ExtResource("6_aegw6")
+leads_to = "res://levels/VillageEntrance.tscn"
+locked = false
+door_number = 0
+passable = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
+size = Vector2(12, 16)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0j4sq"]
+b = Vector2(601, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4cmcx"]
+b = Vector2(0, -61)
+
+[sub_resource type="Environment" id="Environment_u1bqs"]
+background_mode = 3
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
+
+[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+script = ExtResource("1_exf2f")
+spawn_point = NodePath("Markers/Spawn")
+scene_data = SubResource("Resource_ejho4")
+camera_bounds_tl = NodePath("Markers/TL")
+camer_bounds_br = NodePath("Markers/BR")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(0.0606387, 0.0617157, 0.0514035, 1)
+position = Vector2(178.5, 96.3417)
+scale = Vector2(377, 213.317)
+texture = SubResource("CanvasTexture_py7uk")
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Spawn" type="Marker2D" parent="Markers"]
+position = Vector2(21, 102)
+
+[node name="TL" type="Marker2D" parent="Markers"]
+position = Vector2(0, 39)
+
+[node name="BR" type="Marker2D" parent="Markers"]
+position = Vector2(600, 143)
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0, 95)
+
+[node name="BG" type="Node2D" parent="Platform"]
+
+[node name="InteriorBackground" type="Sprite2D" parent="Platform/BG"]
+texture_repeat = 2
+position = Vector2(300, -4)
+scale = Vector2(1.52, 1)
+texture = ExtResource("7_7ttyn")
+
+[node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
+position = Vector2(302, -5)
+scale = Vector2(1.51, 1)
+texture = ExtResource("3_u0kxo")
+
+[node name="Lights" type="Node2D" parent="Platform"]
+position = Vector2(-281, -66)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Platform/Lights"]
+visible = false
+color = Color(0.133196, 0.133196, 0.133196, 1)
+energy = 0.85
+blend_mode = 2
+
+[node name="Doors" type="Node2D" parent="Platform"]
+
+[node name="Door" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
+position = Vector2(83, -4)
+res = SubResource("Resource_gxisv")
+
+[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door"]
+position = Vector2(-1, 8)
+texture = ExtResource("6_3cav0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+position = Vector2(178, 14)
+texture = ExtResource("9_5328g")
+hframes = 8
+vframes = 2
+metadata/_edit_group_ = true
+
+[node name="Actionable" parent="Platform/Sprite2D" instance=ExtResource("10_wtst4")]
+dialogue_resource = ExtResource("11_bscw1")
+dialogue_start = "man_start"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/Sprite2D/Actionable"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_c6lkw")
+
+[node name="PlatformCollider" type="CollisionShape2D" parent="Platform"]
+position = Vector2(0, 22)
+shape = SubResource("SegmentShape2D_0j4sq")
+
+[node name="WallColliderL" type="CollisionShape2D" parent="Platform"]
+position = Vector2(10, 23)
+shape = SubResource("SegmentShape2D_4cmcx")
+
+[node name="WallColliderR" type="CollisionShape2D" parent="Platform"]
+position = Vector2(593, 23)
+shape = SubResource("SegmentShape2D_4cmcx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
+environment = SubResource("Environment_u1bqs")
+camera_attributes = SubResource("CameraAttributesPractical_4uxb2")

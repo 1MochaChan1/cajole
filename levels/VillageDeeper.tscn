@@ -1,0 +1,184 @@
+[gd_scene load_steps=18 format=3 uid="uid://8nueph2myqfw"]
+
+[ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_qj38e"]
+[ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_s4ee0"]
+[ext_resource type="Texture2D" uid="uid://c2vw8vqmt6631" path="res://assets/sprites/environment/BG.png" id="3_lwk17"]
+[ext_resource type="Texture2D" uid="uid://cw8pbmgikw220" path="res://assets/sprites/environment/MG.png" id="4_5cjgk"]
+[ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="5_ftb7c"]
+[ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="6_7235o"]
+[ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="7_f52c4"]
+[ext_resource type="PackedScene" uid="uid://bbsqsg253fdlg" path="res://core/components/props/Lamp.tscn" id="7_uvlue"]
+[ext_resource type="Texture2D" uid="uid://c4jky4ccutd4a" path="res://assets/sprites/environment/house2.tres" id="8_4oxsw"]
+[ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="10_leq8q"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="11_3e4vg"]
+[ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_ysuec"]
+[ext_resource type="PackedScene" uid="uid://c135ki1wh8yif" path="res://levels/CottageEntrance.tscn" id="12_fvir4"]
+
+[sub_resource type="Resource" id="Resource_ejho4"]
+script = ExtResource("2_s4ee0")
+keys_on_player = Array[int]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
+size = Vector2(12, 16)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0j4sq"]
+b = Vector2(635, -1)
+
+[sub_resource type="Environment" id="Environment_u1bqs"]
+background_mode = 3
+
+[node name="VillageDeeper" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+script = ExtResource("1_qj38e")
+spawn_point = NodePath("Markers/Spawn")
+scene_data = SubResource("Resource_ejho4")
+camera_bounds_tl = NodePath("Markers/TL")
+camer_bounds_br = NodePath("Markers/BR")
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Spawn" type="Marker2D" parent="Markers"]
+position = Vector2(68, 40)
+
+[node name="TL" type="Marker2D" parent="Markers"]
+position = Vector2(11, 0)
+
+[node name="BR" type="Marker2D" parent="Markers"]
+position = Vector2(598, 99)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
+z_index = -100
+color = Color(0.201979, 0.262843, 0.323756, 1)
+
+[node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 1)
+motion_mirroring = Vector2(200, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
+texture = ExtResource("3_lwk17")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/BG"]
+texture = ExtResource("3_lwk17")
+centered = false
+offset = Vector2(200, 0)
+
+[node name="MG" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 1)
+motion_mirroring = Vector2(200, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/MG"]
+texture = ExtResource("4_5cjgk")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/MG"]
+texture = ExtResource("4_5cjgk")
+centered = false
+offset = Vector2(200, 0)
+
+[node name="FG" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(200, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FG"]
+texture = ExtResource("5_ftb7c")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/FG"]
+texture = ExtResource("5_ftb7c")
+centered = false
+offset = Vector2(200, 0)
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0, 60)
+
+[node name="Props" type="Node2D" parent="Platform"]
+position = Vector2(-367, -59)
+
+[node name="House1" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(559.211, 46.7594)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_f52c4")
+
+[node name="House2" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(700, 55.6163)
+scale = Vector2(-1.5, 1.5)
+texture = ExtResource("8_4oxsw")
+
+[node name="House3" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(438.835, 58.606)
+scale = Vector2(-1.25, 1.5)
+texture = ExtResource("8_4oxsw")
+
+[node name="House4" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(844.099, 48.864)
+scale = Vector2(1, 1.25)
+texture = ExtResource("7_f52c4")
+
+[node name="House5" type="Sprite2D" parent="Platform/Props"]
+position = Vector2(1026.16, 48.864)
+scale = Vector2(1, 1.25)
+texture = ExtResource("7_f52c4")
+
+[node name="Lights" type="Node2D" parent="Platform"]
+position = Vector2(-281, -66)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Platform/Lights"]
+color = Color(0.133196, 0.133196, 0.133196, 1)
+energy = 0.85
+blend_mode = 2
+
+[node name="Lamp" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
+position = Vector2(331, 52)
+rotation = 3.14159
+scale = Vector2(-1.25, -1.5)
+
+[node name="Lamp2" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
+position = Vector2(474, 59)
+rotation = 3.30024
+scale = Vector2(1.5, -1.5)
+
+[node name="Lamp3" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
+position = Vector2(653.189, 49.5159)
+rotation = 3.09519
+scale = Vector2(-1.5, -1.5)
+
+[node name="Lamp4" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
+position = Vector2(772.569, 57.0885)
+rotation = 2.87979
+scale = Vector2(1.5, -1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+position = Vector2(178, 11)
+texture = ExtResource("10_leq8q")
+hframes = 8
+vframes = 2
+
+[node name="Actionable" parent="Platform/Sprite2D" instance=ExtResource("11_3e4vg")]
+dialogue_resource = ExtResource("11_ysuec")
+dialogue_start = "man_start"
+next_scene_path = ExtResource("12_fvir4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/Sprite2D/Actionable"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_c6lkw")
+
+[node name="PlatformCollider" type="CollisionShape2D" parent="Platform"]
+position = Vector2(0, 21)
+shape = SubResource("SegmentShape2D_0j4sq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform/PlatformCollider"]
+position = Vector2(100, -31)
+texture = ExtResource("6_7235o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Platform/PlatformCollider"]
+position = Vector2(298, -31)
+texture = ExtResource("6_7235o")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Platform/PlatformCollider"]
+position = Vector2(497, -31)
+texture = ExtResource("6_7235o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
+environment = SubResource("Environment_u1bqs")

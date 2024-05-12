@@ -24,7 +24,7 @@ texture = SubResource("GradientTexture2D_co7of")
 texture_scale = 17.48
 
 [node name="Cone" type="PointLight2D" parent="."]
-position = Vector2(3.46224, 0.876664)
+position = Vector2(2.79407, 2.10165)
 scale = Vector2(0.193728, 0.148466)
 color = Color(0.760784, 0.854902, 0.360784, 1)
 texture = ExtResource("2_p1l6g")
