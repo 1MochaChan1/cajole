@@ -1,4 +1,4 @@
-class_name Door extends Node
+class_name Door extends Area2D
 
 @export var res:DoorRes
 var leads_to

@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=22 format=3 uid="uid://c135ki1wh8yif"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
 [ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="3_u0kxo"]
+[ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="5_tn6er"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
 [ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="6_3cav0"]
 [ext_resource type="Script" path="res://core/resources/res_door.gd" id="6_aegw6"]
@@ -18,19 +19,19 @@ keys_on_player = Array[int]([])
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
-[sub_resource type="Resource" id="Resource_gxisv"]
+[sub_resource type="Resource" id="Resource_ugev3"]
 script = ExtResource("6_aegw6")
 leads_to = "res://levels/VillageEntrance.tscn"
 locked = true
 door_number = 2
-passable = false
+blocked = false
 
 [sub_resource type="Resource" id="Resource_u6b7c"]
 script = ExtResource("6_aegw6")
 leads_to = "res://levels/VillageEntrance.tscn"
 locked = false
 door_number = 3
-passable = false
+blocked = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
 size = Vector2(12, 16)
@@ -98,11 +99,15 @@ color = Color(0.133196, 0.133196, 0.133196, 1)
 energy = 0.85
 blend_mode = 2
 
+[node name="Key" parent="Platform" groups=["Keys"] instance=ExtResource("5_tn6er")]
+position = Vector2(248, 11)
+key_number = 2
+
 [node name="Doors" type="Node2D" parent="Platform"]
 
 [node name="Door2" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
 position = Vector2(200, -4)
-res = SubResource("Resource_gxisv")
+res = SubResource("Resource_ugev3")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door2"]
 position = Vector2(-1, 8)

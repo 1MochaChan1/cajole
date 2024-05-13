@@ -1,21 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://loxg0ss1u61"]
 
-[ext_resource type="Script" path="res://core/components/keys/key.gd" id="1_43p03"]
+[ext_resource type="Script" path="res://core/components/keys/Key.gd" id="1_20gxf"]
 [ext_resource type="Texture2D" uid="uid://dnhlrwxrf6k8d" path="res://assets/sprites/key.png" id="2_16noc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64jog"]
 
-[node name="Key" type="Node2D"]
-script = ExtResource("1_43p03")
-
-[node name="StaticBody2D" type="Area2D" parent="."]
+[node name="StaticBody2D" type="Area2D"]
 scale = Vector2(0.75, 0.75)
 collision_layer = 8
 collision_mask = 3
 input_pickable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_64jog")
+script = ExtResource("1_20gxf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_16noc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_64jog")

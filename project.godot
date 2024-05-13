@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="cajole"
-run/main_scene="res://levels/VillageDeeper.tscn"
+run/main_scene="res://levels/CottageEntrance.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

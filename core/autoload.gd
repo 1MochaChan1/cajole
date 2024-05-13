@@ -1,6 +1,6 @@
 extends Node
 
-enum INTERACTIONS {DOOR, CHARACTER, CLOSET, DOOR_LOCKED}
+enum INTERACTIONS {DOOR, CHARACTER, CLOSET, KEY}
 var scene_data:SceneData
 
 func change_scene(new_scene:PackedScene, _data:SceneData=null):

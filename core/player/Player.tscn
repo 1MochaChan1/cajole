@@ -139,7 +139,7 @@ max_sprint_speed = 150.0
 ray_cast = NodePath("Ray")
 animation_player = NodePath("AnimationPlayer")
 camera = NodePath("Camera2D")
-actionable_detector = NodePath("ActionableDetector")
+actionable_detector = NodePath("InteractableDetector")
 label = NodePath("Label")
 _actionable_diag_caller = NodePath("Actionable")
 
@@ -156,14 +156,6 @@ editor_draw_limits = true
 enabled = false
 target_position = Vector2(60, 0)
 
-[node name="Interactable Detector" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 13
-
-[node name="CollisionShape" type="CollisionShape2D" parent="Interactable Detector"]
-position = Vector2(0, 2.1836)
-shape = SubResource("RectangleShape2D_en7g5")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vrvff")
@@ -178,11 +170,11 @@ hframes = 8
 region_enabled = true
 region_rect = Rect2(0, 16, 128, 16)
 
-[node name="ActionableDetector" type="Area2D" parent="."]
+[node name="InteractableDetector" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 24
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableDetector"]
 position = Vector2(4.75, 1)
 shape = SubResource("RectangleShape2D_xkeny")
 
@@ -211,7 +203,3 @@ dialogue_resource = ExtResource("4_1xx27")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actionable"]
 shape = SubResource("RectangleShape2D_4vqt2")
-
-[connection signal="area_shape_entered" from="Interactable Detector" to="." method="_on_area_2d_area_shape_entered"]
-[connection signal="body_entered" from="Interactable Detector" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable Detector" to="." method="_on_area_2d_body_exited"]

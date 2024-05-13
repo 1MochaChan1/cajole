@@ -24,7 +24,6 @@ var curr_scene_data:SceneData
 var _can_interact:bool = false
 var _changing_scene:bool = false
 var _sprinting:bool = false # using for animation
-var _interaction:Globals.INTERACTIONS
 var _speed_multiplier:float = 50
 var _next_scene:PackedScene
 var _curr_scene:CustomScene
@@ -51,6 +50,7 @@ func _physics_process(_delta):
 	if(!_changing_scene):
 		move_and_slide()
 
+
 func _unhandled_input(_event:InputEvent):
 	x_axis = (
 		Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -70,25 +70,40 @@ func _unhandled_input(_event:InputEvent):
 		toggle_flashlight()
 		
 	if(Input.is_action_just_pressed("interact")):
-		var actionables: = actionable_detector.get_overlapping_areas()
-		if(actionables.size() > 0):
-			actionables[0].action()
-	
-	
-	if(_can_interact and Input.is_action_just_pressed("interact")):
-		if(_interaction != null):
-			handle_interact(_interaction)
+		var interactables: = actionable_detector.get_overlapping_areas()
+		if(interactables.size() > 0):
+			if(interactables[0] is Door):
+				handle_interact(Globals.INTERACTIONS.DOOR, interactables[0])
+			if(interactables[0] is Key):
+				handle_interact(Globals.INTERACTIONS.KEY, interactables[0])
+			if(interactables[0] is Actionable):
+				handle_interact(Globals.INTERACTIONS.CHARACTER, interactables[0])
 
 
-func handle_interact(interaction:Globals.INTERACTIONS):
-	match interaction:
-		Globals.INTERACTIONS.DOOR_LOCKED:
-			_actionable_diag_caller.dialogue_start = "door_locked"
-			_actionable_diag_caller.action()
-			_can_interact=false
+func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
+	match _interaction:
 		Globals.INTERACTIONS.DOOR:
+			var keys = curr_scene_data.keys_on_player
+			if(_body.res.blocked):
+				return
+			elif(_body.res.locked and not(_body.res.door_number in keys)):
+				_actionable_diag_caller.dialogue_start = "door_locked"
+				_actionable_diag_caller.action()
+				return
+			elif(_body.res.locked and (_body.res.door_number in keys)):
+					pass
+			_next_scene = load(_body.res.leads_to)
 			_changing_scene = true
 			opened_door.emit(_next_scene, curr_scene_data)
+		
+		Globals.INTERACTIONS.KEY:
+			if(_body.key_number not in curr_scene_data.keys_on_player):
+				curr_scene_data.keys_on_player.append(_body.key_number)
+				_body.queue_free()
+		
+		Globals.INTERACTIONS.CHARACTER:
+			_body.action()
+		
 		Globals.INTERACTIONS.CLOSET:
 			pass
 
@@ -107,7 +122,8 @@ func handle_label():
 	var actionables: = actionable_detector.get_overlapping_areas()
 	if(actionables.size() > 0):
 		label.show()
-	
+	else:
+		label.hide()
 	if(velocity.x < 0):
 		label.scale.x = label.scale.y*-1
 	elif (velocity.x > 0):
@@ -120,7 +136,7 @@ func set_camera_bounds():
 	camera.limit_left = int(_curr_scene.camera_bounds_tl.global_position.x)
 	camera.limit_bottom = int(_curr_scene.camer_bounds_br.global_position.y)
 	camera.limit_right = int(_curr_scene.camer_bounds_br.global_position.x)
-	
+
 
 func flip_char(dir):  # I Don't Know How This Works
 	scale.x = lerp(scale.x,  scale.y * dir, lerp_speed) # See How It Works in Debug
@@ -130,42 +146,3 @@ func toggle_flashlight():
 	# WHY THE FUCK YOU USING A RAYCAST?!!
 	if(ray_cast):
 		ray_cast.enabled = !ray_cast.enabled 
-
-
-# When enter door collision
-func _on_area_2d_body_entered(body):
-	if(body is Door):
-		label.show()
-		if (body.res.passable):
-			_next_scene = body.leads_to
-			_interaction = Globals.INTERACTIONS.DOOR
-			_can_interact = true
-		else:
-			var keys = curr_scene_data.keys_on_player
-			if(body.res.locked and not(body.res.door_number in keys)):
-				_can_interact=true
-				_interaction = Globals.INTERACTIONS.DOOR_LOCKED
-				
-				return
-			elif (body.res.locked and body.res.door_number in keys):
-				body.res.locked = false
-				
-			_next_scene = body.leads_to
-			_interaction = Globals.INTERACTIONS.DOOR
-			_can_interact = true
-
-# When exit door collision
-func _on_area_2d_body_exited(body):
-	if(body is Door):
-		label.hide()
-		_interaction = Globals.INTERACTIONS.DOOR
-		_can_interact = false
-
-# When enter key collision
-func _on_area_2d_area_shape_entered(
-	_area_rid, area, area_shape_index, _local_shape_index):
-	var node = area.shape_owner_get_owner(area_shape_index).get_node("../..")
-	if(node is Key):
-		if(node.key_number not in curr_scene_data.keys_on_player):
-			curr_scene_data.keys_on_player.append(node.key_number)
-			node.queue_free()
