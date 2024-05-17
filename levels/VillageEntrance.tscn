@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=14 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="8_e0tym"]
 [ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_bth54"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
-[ext_resource type="Script" path="res://core/resources/res_door.gd" id="11_vlens"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
 b = Vector2(1000.1, -0.554733)
@@ -20,13 +19,6 @@ b = Vector2(0, 80.5)
 
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
-
-[sub_resource type="Resource" id="Resource_i2ws6"]
-script = ExtResource("11_vlens")
-leads_to = "res://levels/VillageDeeper.tscn"
-locked = false
-door_number = 0
-blocked = false
 
 [node name="TestLevel1" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
 script = ExtResource("1_orgjk")
@@ -192,4 +184,3 @@ position = Vector2(358.895, 70.1555)
 
 [node name="Door" parent="." instance=ExtResource("10_kp8rf")]
 position = Vector2(600.043, 51.5)
-res = SubResource("Resource_i2ws6")

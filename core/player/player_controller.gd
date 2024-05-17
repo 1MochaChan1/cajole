@@ -8,7 +8,6 @@ const GRAVITY = 10
 @export var max_walk_speed:float
 @export var sprint_speed:float
 @export var max_sprint_speed:float
-@export var ray_cast:RayCast2D
 @export var animation_player:AnimationPlayer
 @export var camera:Camera2D
 @export var actionable_detector:Area2D
@@ -74,7 +73,7 @@ func _unhandled_input(_event:InputEvent):
 		if(interactables.size() > 0):
 			if(interactables[0] is Door):
 				handle_interact(Globals.INTERACTIONS.DOOR, interactables[0])
-			if(interactables[0] is Key):
+			if(interactables[0] is DoorKey):
 				handle_interact(Globals.INTERACTIONS.KEY, interactables[0])
 			if(interactables[0] is Actionable):
 				handle_interact(Globals.INTERACTIONS.CHARACTER, interactables[0])
@@ -84,15 +83,15 @@ func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 	match _interaction:
 		Globals.INTERACTIONS.DOOR:
 			var keys = curr_scene_data.keys_on_player
-			if(_body.res.blocked):
+			if(_body.blocked):
 				return
-			elif(_body.res.locked and not(_body.res.door_number in keys)):
+			elif(_body.locked and not(_body.door_number in keys)):
 				_actionable_diag_caller.dialogue_start = "door_locked"
 				_actionable_diag_caller.action()
 				return
-			elif(_body.res.locked and (_body.res.door_number in keys)):
+			elif(_body.locked and (_body.door_number in keys)):
 					pass
-			_next_scene = load(_body.res.leads_to)
+			_next_scene = _body.leads_to
 			_changing_scene = true
 			opened_door.emit(_next_scene, curr_scene_data)
 		
@@ -143,6 +142,4 @@ func flip_char(dir):  # I Don't Know How This Works
 
 
 func toggle_flashlight():
-	# WHY THE FUCK YOU USING A RAYCAST?!!
-	if(ray_cast):
-		ray_cast.enabled = !ray_cast.enabled 
+	pass

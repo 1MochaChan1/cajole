@@ -1,20 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=16 format=3 uid="uid://dkdcbidonjr60"]
 
-[ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
-[ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
-[ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="3_u0kxo"]
-[ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="5_tn6er"]
-[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
-[ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="6_3cav0"]
-[ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="7_7ttyn"]
-[ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="7_u4iu6"]
-[ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="9_5328g"]
-[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="10_wtst4"]
-[ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_bscw1"]
-
-[sub_resource type="Resource" id="Resource_ejho4"]
-script = ExtResource("2_08oye")
-keys_on_player = Array[int]([])
+[ext_resource type="Script" path="res://levels/cottage_bedroom_2.gd" id="1_56g1l"]
+[ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="2_0v48u"]
+[ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="3_su5af"]
+[ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="4_nfotl"]
+[ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_gmvie"]
+[ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="7_r4tam"]
+[ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="8_e3iab"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="9_1vb6h"]
+[ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="10_nrh03"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
@@ -32,10 +26,9 @@ background_mode = 3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
 
-[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
-script = ExtResource("1_exf2f")
+[node name="CottageBedroom2" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+script = ExtResource("1_56g1l")
 spawn_point = NodePath("Markers/Spawn")
-scene_data = SubResource("Resource_ejho4")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
 
@@ -57,7 +50,7 @@ position = Vector2(21, 102)
 position = Vector2(0, 39)
 
 [node name="BR" type="Marker2D" parent="Markers"]
-position = Vector2(600, 143)
+position = Vector2(365, 143)
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0, 95)
@@ -68,12 +61,12 @@ position = Vector2(0, 95)
 texture_repeat = 2
 position = Vector2(298, -4)
 scale = Vector2(1.53, 1)
-texture = ExtResource("7_7ttyn")
+texture = ExtResource("2_0v48u")
 
 [node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
-position = Vector2(302, -5)
-scale = Vector2(1.51, 1)
-texture = ExtResource("3_u0kxo")
+position = Vector2(183.5, -5)
+scale = Vector2(0.9175, 1)
+texture = ExtResource("3_su5af")
 
 [node name="Lights" type="Node2D" parent="Platform"]
 position = Vector2(-281, -66)
@@ -84,40 +77,37 @@ color = Color(0.133196, 0.133196, 0.133196, 1)
 energy = 0.85
 blend_mode = 2
 
-[node name="Key" parent="Platform" groups=["Keys"] instance=ExtResource("5_tn6er")]
+[node name="Key" parent="Platform" groups=["Keys"] instance=ExtResource("4_nfotl")]
 position = Vector2(57, 11)
 key_number = 2
 
 [node name="Doors" type="Node2D" parent="Platform"]
 
-[node name="Door2" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
-position = Vector2(200, -4)
+[node name="Door2" parent="Platform/Doors" instance=ExtResource("5_gmvie")]
+position = Vector2(113, -3)
 leads_to_scene = "res://levels/CottageMid.tscn"
-locked = true
-door_number = 2
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door2"]
-position = Vector2(-1, 8)
-texture = ExtResource("6_3cav0")
+position = Vector2(0, 8)
+texture = ExtResource("7_r4tam")
 
-[node name="Door3" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
-position = Vector2(342, -3)
-leads_to_scene = "res://levels/CottageBedroom1.tscn"
-door_number = 3
+[node name="Door7" parent="Platform/Doors" instance=ExtResource("5_gmvie")]
+position = Vector2(227, -3)
+leads_to_scene = "res://levels/CottageBedroom3.tscn"
 
-[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door3"]
-position = Vector2(-1, 8)
-texture = ExtResource("7_u4iu6")
+[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door7"]
+position = Vector2(0, 8)
+texture = ExtResource("7_r4tam")
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 position = Vector2(178, 14)
-texture = ExtResource("9_5328g")
+texture = ExtResource("8_e3iab")
 hframes = 8
 vframes = 2
 metadata/_edit_group_ = true
 
-[node name="Actionable" parent="Platform/Sprite2D" instance=ExtResource("10_wtst4")]
-dialogue_resource = ExtResource("11_bscw1")
+[node name="Actionable" parent="Platform/Sprite2D" instance=ExtResource("9_1vb6h")]
+dialogue_resource = ExtResource("10_nrh03")
 dialogue_start = "man_start"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/Sprite2D/Actionable"]
@@ -129,11 +119,11 @@ position = Vector2(0, 22)
 shape = SubResource("SegmentShape2D_0j4sq")
 
 [node name="WallColliderL" type="CollisionShape2D" parent="Platform"]
-position = Vector2(10, 23)
+position = Vector2(4, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WallColliderR" type="CollisionShape2D" parent="Platform"]
-position = Vector2(593, 23)
+position = Vector2(360, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
