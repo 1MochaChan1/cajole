@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://wcesguafkw2f"]
+[gd_scene load_steps=16 format=3 uid="uid://wcesguafkw2f"]
 
 [ext_resource type="Script" path="res://levels/cottage_mid.gd" id="1_xth3v"]
 [ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="3_h0yr5"]
 [ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="4_b65bl"]
-[ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="5_qhj6i"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="6_1u5r2"]
 [ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="8_8xbyb"]
 [ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="9_i7yn1"]
@@ -77,37 +76,59 @@ color = Color(0.133196, 0.133196, 0.133196, 1)
 energy = 0.85
 blend_mode = 2
 
-[node name="Key" parent="Platform" groups=["Keys"] instance=ExtResource("5_qhj6i")]
-position = Vector2(57, 11)
-key_number = 2
-
 [node name="Doors" type="Node2D" parent="Platform"]
 
-[node name="Door4" parent="Platform/Doors" instance=ExtResource("6_1u5r2")]
+[node name="Door4" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("6_1u5r2")]
 position = Vector2(136, -3)
-leads_to_scene = "res://levels/CottageBedroom3.tscn"
+leads_to_scene = "res://levels/CottageBedroom2.tscn"
 door_number = 4
+spawn_loc = NodePath("Spawner")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door4"]
 position = Vector2(1, 8)
 texture = ExtResource("9_i7yn1")
 
-[node name="Door5" parent="Platform/Doors" instance=ExtResource("6_1u5r2")]
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door4"]
+position = Vector2(0, 14)
+
+[node name="Door5" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("6_1u5r2")]
 position = Vector2(229, -4)
+locked = true
 door_number = 5
+spawn_loc = NodePath("Spawner")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door5"]
 position = Vector2(0, 8)
 texture = ExtResource("8_8xbyb")
 
-[node name="Door6" parent="Platform/Doors" instance=ExtResource("6_1u5r2")]
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door5"]
+position = Vector2(0, 14)
+
+[node name="Door6" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("6_1u5r2")]
 position = Vector2(342, -4)
 leads_to_scene = "res://levels/CottageBedroom4.tscn"
 door_number = 6
+spawn_loc = NodePath("Spawner")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door6"]
 position = Vector2(0, 9)
 texture = ExtResource("9_i7yn1")
+
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door6"]
+position = Vector2(0, 14)
+
+[node name="Door2" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("6_1u5r2")]
+position = Vector2(50, -4)
+leads_to_scene = "res://levels/CottageEntrance.tscn"
+door_number = 2
+spawn_loc = NodePath("Spawner")
+
+[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_i7yn1")
+
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door2"]
+position = Vector2(0, 14)
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 position = Vector2(178, 14)

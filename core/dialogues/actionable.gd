@@ -14,5 +14,5 @@ func action() -> void:
 	if(next_scene_path):
 		DialogueManager.dialogue_ended.connect(change_scene_from_globals)
 
-func change_scene_from_globals(_someparm):
-	Globals.change_scene(next_scene_path)
+func change_scene_from_globals(_someparm, _data:SceneData=null):
+	Globals.change_scene(next_scene_path, _data)

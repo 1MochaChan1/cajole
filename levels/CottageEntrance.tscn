@@ -15,6 +15,7 @@
 [sub_resource type="Resource" id="Resource_ejho4"]
 script = ExtResource("2_08oye")
 keys_on_player = Array[int]([])
+spawn_door_no = 0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
@@ -90,24 +91,32 @@ key_number = 2
 
 [node name="Doors" type="Node2D" parent="Platform"]
 
-[node name="Door2" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
+[node name="Door2" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_ucuqw")]
 position = Vector2(200, -4)
 leads_to_scene = "res://levels/CottageMid.tscn"
 locked = true
 door_number = 2
+spawn_loc = NodePath("Spawner")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door2"]
 position = Vector2(-1, 8)
 texture = ExtResource("6_3cav0")
 
-[node name="Door3" parent="Platform/Doors" instance=ExtResource("5_ucuqw")]
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door2"]
+position = Vector2(-1, 16)
+
+[node name="Door3" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_ucuqw")]
 position = Vector2(342, -3)
 leads_to_scene = "res://levels/CottageBedroom1.tscn"
 door_number = 3
+spawn_loc = NodePath("Spawner")
 
 [node name="Door1" type="Sprite2D" parent="Platform/Doors/Door3"]
 position = Vector2(-1, 8)
 texture = ExtResource("7_u4iu6")
+
+[node name="Spawner" type="Marker2D" parent="Platform/Doors/Door3"]
+position = Vector2(-1, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 position = Vector2(178, 14)

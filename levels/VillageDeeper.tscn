@@ -17,6 +17,7 @@
 [sub_resource type="Resource" id="Resource_ejho4"]
 script = ExtResource("2_s4ee0")
 keys_on_player = Array[int]([])
+spawn_door_no = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
 size = Vector2(12, 16)

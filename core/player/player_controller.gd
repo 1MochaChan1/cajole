@@ -20,7 +20,6 @@ var speed
 var max_speed
 var curr_scene_data:SceneData
 
-var _can_interact:bool = false
 var _changing_scene:bool = false
 var _sprinting:bool = false # using for animation
 var _speed_multiplier:float = 50
@@ -82,17 +81,19 @@ func _unhandled_input(_event:InputEvent):
 func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 	match _interaction:
 		Globals.INTERACTIONS.DOOR:
+			var door:Door = _body
 			var keys = curr_scene_data.keys_on_player
-			if(_body.blocked):
+			if(door.blocked):
 				return
-			elif(_body.locked and not(_body.door_number in keys)):
+			elif(door.locked and not(door.door_number in keys)):
 				_actionable_diag_caller.dialogue_start = "door_locked"
 				_actionable_diag_caller.action()
 				return
-			elif(_body.locked and (_body.door_number in keys)):
+			elif(door.locked and (door.door_number in keys)):
 					pass
-			_next_scene = _body.leads_to
+			_next_scene = door.leads_to
 			_changing_scene = true
+			curr_scene_data.spawn_door_no = door.door_number
 			opened_door.emit(_next_scene, curr_scene_data)
 		
 		Globals.INTERACTIONS.KEY:
@@ -106,6 +107,7 @@ func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 		Globals.INTERACTIONS.CLOSET:
 			pass
 
+
 func handle_animation():
 	if(abs(velocity.x) > 1):
 		animation_player.play('run')
@@ -117,6 +119,7 @@ func handle_animation():
 	else:
 		animation_player.speed_scale = 1
 
+
 func handle_label():
 	var actionables: = actionable_detector.get_overlapping_areas()
 	if(actionables.size() > 0):
@@ -127,8 +130,7 @@ func handle_label():
 		label.scale.x = label.scale.y*-1
 	elif (velocity.x > 0):
 		label.scale.x = label.scale.y*1
-	
-	
+
 
 func set_camera_bounds():
 	camera.limit_top = int(_curr_scene.camera_bounds_tl.global_position.y)

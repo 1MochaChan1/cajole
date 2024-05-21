@@ -24,10 +24,19 @@ func spawn_player():
 	var player_scene = preload("res://core/player/Player.tscn")
 	player = player_scene.instantiate()
 	add_child(player)
-	player.global_position = spawn_point.global_position
+	var spawn_loc = spawn_point.global_position
+	if(Globals.scene_data.spawn_door_no!=null):
+		var door_no = Globals.scene_data.spawn_door_no
+		var doors_in_scene = get_tree().get_nodes_in_group("Doors")
+		for door:Door in doors_in_scene:
+			if(door.door_number==door_no):
+				spawn_loc = door.spawn_loc.global_position
+				break
+		player.global_position = spawn_loc
 	player.opened_door.connect(change_scene)
 
-func change_scene(new_scene:PackedScene, _data:SceneData):
+# Changes scenes along with Scenedat passed
+func change_scene(new_scene:PackedScene, _data:SceneData=null):
 	get_tree().change_scene_to_packed(new_scene)
 	Globals.scene_data = _data
 
