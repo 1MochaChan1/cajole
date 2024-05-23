@@ -43,7 +43,7 @@ position = Vector2(21, 102)
 position = Vector2(0, 39)
 
 [node name="BR" type="Marker2D" parent="Markers"]
-position = Vector2(358, 140)
+position = Vector2(213, 140)
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0, 95)
@@ -57,8 +57,8 @@ scale = Vector2(1.53, 1)
 texture = ExtResource("2_8jdt7")
 
 [node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
-position = Vector2(181.5, -5)
-scale = Vector2(0.9075, 1)
+position = Vector2(106.5, -5)
+scale = Vector2(0.5325, 1)
 texture = ExtResource("3_dn3af")
 
 [node name="Lights" type="Node2D" parent="Platform"]
@@ -94,7 +94,7 @@ position = Vector2(6, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WallColliderR" type="CollisionShape2D" parent="Platform"]
-position = Vector2(356, 23)
+position = Vector2(209, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]

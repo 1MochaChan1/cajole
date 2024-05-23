@@ -44,7 +44,7 @@ position = Vector2(21, 102)
 position = Vector2(0, 39)
 
 [node name="BR" type="Marker2D" parent="Markers"]
-position = Vector2(367, 143)
+position = Vector2(226, 143)
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0, 95)
@@ -58,8 +58,8 @@ scale = Vector2(1.53, 1)
 texture = ExtResource("3_ry7r7")
 
 [node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
-position = Vector2(186, -5)
-scale = Vector2(0.93, 1)
+position = Vector2(113, -5)
+scale = Vector2(0.565, 1)
 texture = ExtResource("4_mkm1k")
 
 [node name="Lights" type="Node2D" parent="Platform"]
@@ -99,9 +99,11 @@ position = Vector2(4, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WallColliderR" type="CollisionShape2D" parent="Platform"]
-position = Vector2(365, 23)
+position = Vector2(222, 23)
 shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
 environment = SubResource("Environment_u1bqs")
 camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
+
+[connection signal="tree_exited" from="Platform/Key" to="." method="_on_key_tree_exited"]

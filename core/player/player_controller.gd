@@ -20,6 +20,7 @@ var speed
 var max_speed
 var curr_scene_data:SceneData
 
+var _is_in_closeup:bool=false
 var _changing_scene:bool = false
 var _sprinting:bool = false # using for animation
 var _speed_multiplier:float = 50
@@ -36,6 +37,8 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if(_is_in_closeup):
+		return
 	handle_label()
 	velocity.x = lerp(velocity.x, x_axis, lerp_speed)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
@@ -76,6 +79,8 @@ func _unhandled_input(_event:InputEvent):
 				handle_interact(Globals.INTERACTIONS.KEY, interactables[0])
 			if(interactables[0] is Actionable):
 				handle_interact(Globals.INTERACTIONS.CHARACTER, interactables[0])
+			if(interactables[0] is Closeup):
+				handle_interact(Globals.INTERACTIONS.CLOSEUP, interactables[0])
 
 
 func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
@@ -90,11 +95,12 @@ func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 				_actionable_diag_caller.action()
 				return
 			elif(door.locked and (door.door_number in keys)):
-					pass
-			_next_scene = door.leads_to
-			_changing_scene = true
-			curr_scene_data.spawn_door_no = door.door_number
-			opened_door.emit(_next_scene, curr_scene_data)
+				DialogueManager.dialogue_ended.connect(func(_x):enter_door(door))
+				_actionable_diag_caller.dialogue_start = "used_key"
+				_actionable_diag_caller.action()
+				
+			else:
+				enter_door(door)
 		
 		Globals.INTERACTIONS.KEY:
 			if(_body.key_number not in curr_scene_data.keys_on_player):
@@ -104,9 +110,23 @@ func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 		Globals.INTERACTIONS.CHARACTER:
 			_body.action()
 		
-		Globals.INTERACTIONS.CLOSET:
-			pass
+		Globals.INTERACTIONS.CLOSEUP:
+			if(_body is Closeup):
+				if(_is_in_closeup):
+					_is_in_closeup=false
+					_body.switch_back_camera()
+				else:
+					_is_in_closeup=true
+					_body.switch_camera()
+					label.hide()
+				
 
+
+func enter_door(door:Door):
+	_next_scene = door.leads_to
+	_changing_scene = true
+	curr_scene_data.spawn_door_no = door.door_number
+	opened_door.emit(_next_scene, curr_scene_data)
 
 func handle_animation():
 	if(abs(velocity.x) > 1):

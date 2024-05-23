@@ -6,3 +6,5 @@ func _ready():
 	for enemy in enemies:
 		if(enemy is Enemy):
 			enemy.player = player
+
+ 

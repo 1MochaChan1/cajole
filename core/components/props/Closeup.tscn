@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://do0n4uabtun0e"]
+
+[ext_resource type="Script" path="res://core/components/props/closeup.gd" id="1_d1m8k"]
+
+[node name="Closeup" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_d1m8k")
