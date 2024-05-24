@@ -17,6 +17,9 @@ func _on_closeup_lock_on_closeup(_interactable_node:Node):
 
 
 func _on_line_edit_text_changed(new_text):
+	# TODO: Add a go back fucntion.
+	if(len(new_text)<6):
+		dialogue_caller.hide_balloon()
 	if(len(new_text)==6):
 		if(new_text==str(passcode)):
 			dialogue_caller.dialogue_start='right_passcode'

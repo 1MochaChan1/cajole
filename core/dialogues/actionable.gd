@@ -7,12 +7,19 @@ const Balloon = preload("res://core/dialogues/balloon.tscn")
 # Haven't added scene_data as param yet.
 @export var next_scene_path:PackedScene 
 
+var _balloon:Node
+
+
 func action() -> void:
-	var balloon:Node = Balloon.instantiate()
-	get_tree().current_scene.add_child(balloon)
-	balloon.start(dialogue_resource, dialogue_start)
+	_balloon = Balloon.instantiate()
+	get_tree().current_scene.add_child(_balloon)
+	_balloon.start(dialogue_resource, dialogue_start)
 	if(next_scene_path):
 		DialogueManager.dialogue_ended.connect(change_scene_from_globals)
 
 func change_scene_from_globals(_someparm, _data:SceneData=null):
 	Globals.change_scene(next_scene_path, _data)
+
+func hide_balloon():
+	if(_balloon!=null):
+		_balloon.queue_free()
