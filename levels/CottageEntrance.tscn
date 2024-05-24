@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=22 format=3 uid="uid://c135ki1wh8yif"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
@@ -8,7 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://bt10jjfptfuro" path="res://assets/sprites/environment/door1.tres" id="6_3cav0"]
 [ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="7_7ttyn"]
 [ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="7_u4iu6"]
+[ext_resource type="FontFile" uid="uid://bwehnpvllpkts" path="res://assets/ui/m5x7.ttf" id="11_kjdfr"]
+[ext_resource type="FontFile" uid="uid://gampf8jdembm" path="res://assets/ui/Pixie.ttf" id="11_rj611"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="12_ov2kw"]
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="12_x4s6i"]
+[ext_resource type="Resource" uid="uid://gj7fpd5dggmt" path="res://core/dialogues/doors.dialogue" id="13_d5x7f"]
 [ext_resource type="Texture2D" uid="uid://cbbfyq17iigjl" path="res://assets/sprites/environment/clue_painting.tres" id="13_dam78"]
 
 [sub_resource type="Resource" id="Resource_ejho4"]
@@ -32,8 +36,9 @@ background_mode = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72ygg"]
 size = Vector2(20, 35)
 
-[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("dialogue_caller", "spawn_point", "camera_bounds_tl", "camer_bounds_br")]
 script = ExtResource("1_exf2f")
+dialogue_caller = NodePath("DiagCaller")
 spawn_point = NodePath("Markers/Spawn")
 scene_data = SubResource("Resource_ejho4")
 camera_bounds_tl = NodePath("Markers/TL")
@@ -138,6 +143,7 @@ position = Vector2(96, 84)
 camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Closeup"]
+visible = false
 enabled = false
 zoom = Vector2(10, 10)
 
@@ -147,3 +153,75 @@ shape = SubResource("RectangleShape2D_72ygg")
 
 [node name="Sprite2D" type="Sprite2D" parent="Closeup"]
 texture = ExtResource("13_dam78")
+
+[node name="CloseupLock" parent="." node_paths=PackedStringArray("camera", "interact_obj") instance=ExtResource("12_x4s6i")]
+position = Vector2(146, 84)
+camera = NodePath("Camera2D")
+interact_obj = NodePath("CanvasLayer")
+
+[node name="Camera2D" type="Camera2D" parent="CloseupLock"]
+enabled = false
+zoom = Vector2(10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseupLock"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_72ygg")
+
+[node name="Sprite2D" type="Sprite2D" parent="CloseupLock"]
+rotation = -0.231081
+texture = ExtResource("13_dam78")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CloseupLock"]
+visible = false
+
+[node name="Control" type="Control" parent="CloseupLock/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CloseupLock/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = -48.0
+offset_right = 119.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("11_kjdfr")
+text = "Looks like this requires a code."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CloseupLock/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -22.0
+offset_right = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("11_rj611")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "xxxxxx"
+alignment = 1
+max_length = 6
+
+[node name="DiagCaller" parent="." instance=ExtResource("12_ov2kw")]
+dialogue_resource = ExtResource("13_d5x7f")
+
+[connection signal="on_closeup" from="CloseupLock" to="." method="_on_closeup_lock_on_closeup"]
+[connection signal="on_closeup_exit" from="CloseupLock" to="." method="_on_closeup_lock_on_closeup_exit"]
+[connection signal="text_changed" from="CloseupLock/CanvasLayer/Control/LineEdit" to="." method="_on_line_edit_text_changed"]

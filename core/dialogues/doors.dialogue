@@ -9,3 +9,15 @@ You: It's Locked.
 *Used Key*
 
 => END
+
+~ wrong_passcode
+
+[color=red]Incorrect[/color]. Try Again.
+
+=> END
+
+~ right_passcode
+
+[color=green]Correct[/color]. The door is unlocked.
+
+=> END
