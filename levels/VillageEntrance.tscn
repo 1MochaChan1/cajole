@@ -184,3 +184,4 @@ position = Vector2(358.895, 70.1555)
 
 [node name="Door" parent="." instance=ExtResource("10_kp8rf")]
 position = Vector2(600.043, 51.5)
+leads_to_scene = "res://levels/VillageDeeper.tscn"
