@@ -16,6 +16,7 @@ func _on_closeup_lock_on_closeup(_interactable_node:Node):
 	_interactable_node.show()
 
 
+# This would go on the Door #5 in CottageMid Scene
 func _on_line_edit_text_changed(new_text):
 	# TODO: Add a go back fucntion.
 	if(len(new_text)<6):

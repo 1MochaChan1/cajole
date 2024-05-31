@@ -1,18 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkdcbidonjr60"]
+[gd_scene load_steps=7 format=3 uid="uid://dkdcbidonjr60"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_2.gd" id="1_56g1l"]
-[ext_resource type="Texture2D" uid="uid://ciasu1db4x4ml" path="res://assets/sprites/environment/interior_background.png" id="2_0v48u"]
-[ext_resource type="Texture2D" uid="uid://bhvdhr1ofd2py" path="res://assets/sprites/environment/interior_frame.png" id="3_su5af"]
+[ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_jvca3"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_gmvie"]
-[ext_resource type="Texture2D" uid="uid://d1nh3le4gs1i3" path="res://assets/sprites/environment/door.tres" id="7_r4tam"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_0j4sq"]
-b = Vector2(601, 0)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_4cmcx"]
-b = Vector2(0, -61)
 
 [sub_resource type="Environment" id="Environment_u1bqs"]
 background_mode = 3
@@ -37,29 +29,24 @@ texture = SubResource("CanvasTexture_py7uk")
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="Spawn" type="Marker2D" parent="Markers"]
-position = Vector2(21, 102)
+position = Vector2(21, 93)
 
 [node name="TL" type="Marker2D" parent="Markers"]
 position = Vector2(0, 39)
 
 [node name="BR" type="Marker2D" parent="Markers"]
-position = Vector2(258, 143)
+position = Vector2(306, 133)
 
-[node name="Platform" type="StaticBody2D" parent="."]
+[node name="Platform" type="Node2D" parent="."]
 position = Vector2(0, 95)
 
-[node name="BG" type="Node2D" parent="Platform"]
-
-[node name="InteriorBackground" type="Sprite2D" parent="Platform/BG"]
-texture_repeat = 2
-position = Vector2(298, -4)
-scale = Vector2(1.53, 1)
-texture = ExtResource("2_0v48u")
-
-[node name="InteriorFrame" type="Sprite2D" parent="Platform/BG"]
-position = Vector2(129, -5)
-scale = Vector2(0.645, 1)
-texture = ExtResource("3_su5af")
+[node name="TileMap" type="TileMap" parent="Platform"]
+tile_set = ExtResource("2_jvca3")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(18, 196608, 3, -65518, 458752, 1, -131054, 458752, 1, -196590, 196608, 2, 17, 393216, 0, -65519, 589824, 0, -131055, 589824, 0, -196591, 458752, 0, 16, 393216, 0, -65520, 589824, 0, -131056, 589824, 0, -196592, 458752, 0, 15, 393216, 0, -65521, 589824, 0, -131057, 589824, 0, -196593, 458752, 0, 14, 393216, 0, -65522, 589824, 0, -131058, 589824, 0, -196594, 458752, 0, 13, 393216, 0, -65523, 589824, 0, -131059, 589824, 0, -196595, 458752, 0, 12, 393216, 0, -65524, 589824, 0, -131060, 589824, 0, -196596, 458752, 0, 11, 393216, 0, -65525, 589824, 0, -131061, 589824, 0, -196597, 458752, 0, 10, 393216, 0, -65526, 589824, 0, -131062, 589824, 0, -196598, 458752, 0, 9, 393216, 0, -65527, 589824, 0, -131063, 589824, 0, -196599, 458752, 0, 8, 393216, 0, -65528, 589824, 0, -131064, 589824, 0, -196600, 458752, 0, 7, 393216, 0, -65529, 589824, 0, -131065, 589824, 0, -196601, 458752, 0, 6, 393216, 0, -65530, 589824, 0, -131066, 589824, 0, -196602, 458752, 0, 5, 393216, 0, -65531, 589824, 0, -131067, 589824, 0, -196603, 458752, 0, 4, 393216, 0, -65532, 589824, 0, -131068, 589824, 0, -196604, 458752, 0, 3, 393216, 0, -65533, 589824, 0, -131069, 589824, 0, -196605, 458752, 0, 2, 393216, 0, -65534, 589824, 0, -131070, 589824, 0, -196606, 458752, 0, 1, 393216, 0, -65535, 589824, 0, -131071, 589824, 0, -196607, 458752, 0, 0, 131072, 3, -65536, 393216, 1, -131072, 393216, 1, -196608, 131072, 2)
+layer_1/name = "Objects"
+layer_1/tile_data = PackedInt32Array(-65530, 0, 8, -65523, 0, 8, 9, 262144, 10, 3, 131072, 11, 1, 131072, 11, -196606, 262144, 12, -196599, 262144, 12, -131071, 393216, 11, -65533, 524288, 11, -65525, 393216, 9, -65521, 524288, 9, -196591, 262144, 12, -65527, 0, 12, 17, 0, 11, -65519, 131072, 12)
 
 [node name="Lights" type="Node2D" parent="Platform"]
 position = Vector2(-281, -66)
@@ -73,42 +60,22 @@ blend_mode = 2
 [node name="Doors" type="Node2D" parent="Platform"]
 
 [node name="Door4" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_gmvie")]
-position = Vector2(113, -3)
+position = Vector2(104, -16)
 leads_to_scene = "res://levels/CottageMid.tscn"
 door_number = 4
 spawn_loc = NodePath("Spawner")
-
-[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door4"]
-position = Vector2(0, 8)
-texture = ExtResource("7_r4tam")
 
 [node name="Spawner" type="Marker2D" parent="Platform/Doors/Door4"]
 position = Vector2(0, 14)
 
 [node name="Door7" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_gmvie")]
-position = Vector2(227, -3)
+position = Vector2(216, -16)
 leads_to_scene = "res://levels/CottageBedroom3.tscn"
 door_number = 7
 spawn_loc = NodePath("Spawner")
 
-[node name="Door1" type="Sprite2D" parent="Platform/Doors/Door7"]
-position = Vector2(0, 8)
-texture = ExtResource("7_r4tam")
-
 [node name="Spawner" type="Marker2D" parent="Platform/Doors/Door7"]
 position = Vector2(0, 14)
-
-[node name="PlatformCollider" type="CollisionShape2D" parent="Platform"]
-position = Vector2(0, 22)
-shape = SubResource("SegmentShape2D_0j4sq")
-
-[node name="WallColliderL" type="CollisionShape2D" parent="Platform"]
-position = Vector2(4, 23)
-shape = SubResource("SegmentShape2D_4cmcx")
-
-[node name="WallColliderR" type="CollisionShape2D" parent="Platform"]
-position = Vector2(254, 23)
-shape = SubResource("SegmentShape2D_4cmcx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
 environment = SubResource("Environment_u1bqs")
