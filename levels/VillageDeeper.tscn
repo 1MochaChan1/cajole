@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://8nueph2myqfw"]
+[gd_scene load_steps=19 format=3 uid="uid://8nueph2myqfw"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_qj38e"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_s4ee0"]
@@ -22,6 +22,9 @@ spawn_door_no = 0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
 size = Vector2(12, 16)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xoua8"]
+b = Vector2(0, -80)
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_0j4sq"]
 b = Vector2(635, -1)
 
@@ -38,13 +41,12 @@ camer_bounds_br = NodePath("Markers/BR")
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="Spawn" type="Marker2D" parent="Markers"]
-position = Vector2(68, 40)
+position = Vector2(12, 70)
 
 [node name="TL" type="Marker2D" parent="Markers"]
-position = Vector2(11, 0)
 
 [node name="BR" type="Marker2D" parent="Markers"]
-position = Vector2(598, 99)
+position = Vector2(542, 99)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -165,19 +167,27 @@ next_scene_path = ExtResource("12_fvir4")
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_c6lkw")
 
+[node name="WallCollider" type="CollisionShape2D" parent="Platform"]
+position = Vector2(0, 21)
+shape = SubResource("SegmentShape2D_xoua8")
+
+[node name="WallCollider2" type="CollisionShape2D" parent="Platform"]
+position = Vector2(541, 21)
+shape = SubResource("SegmentShape2D_xoua8")
+
 [node name="PlatformCollider" type="CollisionShape2D" parent="Platform"]
 position = Vector2(0, 21)
 shape = SubResource("SegmentShape2D_0j4sq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Platform/PlatformCollider"]
+[node name="Sprite2D2" type="Sprite2D" parent="Platform/PlatformCollider"]
 position = Vector2(100, -31)
 texture = ExtResource("6_7235o")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Platform/PlatformCollider"]
+[node name="Sprite2D3" type="Sprite2D" parent="Platform/PlatformCollider"]
 position = Vector2(298, -31)
 texture = ExtResource("6_7235o")
 
-[node name="Sprite2D3" type="Sprite2D" parent="Platform/PlatformCollider"]
+[node name="Sprite2D4" type="Sprite2D" parent="Platform/PlatformCollider"]
 position = Vector2(497, -31)
 texture = ExtResource("6_7235o")
 

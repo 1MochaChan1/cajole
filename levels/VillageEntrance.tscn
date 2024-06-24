@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=15 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_bth54"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_cn208"]
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6fest"]
 b = Vector2(1000.1, -0.554733)
 
@@ -20,11 +22,20 @@ b = Vector2(0, 80.5)
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
 
-[node name="TestLevel1" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+[node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
 script = ExtResource("1_orgjk")
 spawn_point = NodePath("SpawnPoint")
 camera_bounds_tl = NodePath("CameraBounds/TopLeft")
 camer_bounds_br = NodePath("CameraBounds/BottomRight")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(0.0606387, 0.0617157, 0.0514035, 1)
+position = Vector2(178.5, 96.3417)
+scale = Vector2(377, 213.317)
+texture = SubResource("CanvasTexture_cn208")
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(-300, 0)
@@ -122,7 +133,7 @@ position = Vector2(900.043, 0)
 shape = SubResource("SegmentShape2D_05eiu")
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(66.8174, 62.2406)
+position = Vector2(33.8546, 70.1555)
 gizmo_extents = 8.5
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -177,10 +188,10 @@ environment = SubResource("Environment_qyx8m")
 [node name="TopLeft" type="Marker2D" parent="CameraBounds"]
 
 [node name="BottomRight" type="Marker2D" parent="CameraBounds"]
-position = Vector2(793.264, 100)
+position = Vector2(607.114, 107.778)
 
 [node name="Stranger" parent="." instance=ExtResource("9_bth54")]
-position = Vector2(358.895, 70.1555)
+position = Vector2(358.895, 70.9225)
 
 [node name="Door" parent="." instance=ExtResource("10_kp8rf")]
 position = Vector2(600.043, 51.5)

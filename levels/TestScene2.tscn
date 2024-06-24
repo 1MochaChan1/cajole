@@ -2,24 +2,27 @@
 
 [ext_resource type="Script" path="res://levels/test_scene_2.gd" id="1_5hkfn"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="1_icc02"]
-[ext_resource type="Resource" uid="uid://dhdh8diivv1rl" path="res://core/components/doors/dr1.tres" id="3_sudgb"]
+[ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="3_mfp1s"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_s43t7"]
 b = Vector2(531, 0)
 
-[node name="TestScene2" type="Node2D" node_paths=PackedStringArray("spawn_point")]
+[node name="TestScene2" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
 script = ExtResource("1_5hkfn")
-spawn_point = NodePath("SpawnPoint")
+spawn_point = NodePath("StaticBody2D/SpawnPoint")
+camera_bounds_tl = NodePath("Marker2D")
+camer_bounds_br = NodePath("Marker2D2")
+diag_caller = NodePath("Diag_Caller")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(29, 314)
+position = Vector2(0, 142.367)
 metadata/_edit_group_ = true
+
+[node name="SpawnPoint" type="Node2D" parent="StaticBody2D"]
+position = Vector2(32.019, -20.2855)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("SegmentShape2D_s43t7")
-
-[node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2(180, 278)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = 240.0
@@ -31,5 +34,12 @@ text = "Test Level 2
 "
 
 [node name="Door" parent="." instance=ExtResource("1_icc02")]
-position = Vector2(485, 282)
-res = ExtResource("3_sudgb")
+position = Vector2(278.405, 111.867)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 60.8112)
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(529.623, 213)
+
+[node name="Diag_Caller" parent="." instance=ExtResource("3_mfp1s")]

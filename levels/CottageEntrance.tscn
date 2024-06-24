@@ -1,16 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=9 format=3 uid="uid://c135ki1wh8yif"]
 
-[ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_exf2f"]
-[ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_08oye"]
+[ext_resource type="Script" path="res://levels/cottage_entrance.gd" id="1_6pg1t"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="3_ecjco"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="12_ov2kw"]
 [ext_resource type="Resource" uid="uid://gj7fpd5dggmt" path="res://core/dialogues/doors.dialogue" id="13_d5x7f"]
-
-[sub_resource type="Resource" id="Resource_ejho4"]
-script = ExtResource("2_08oye")
-keys_on_player = Array[int]([])
-spawn_door_no = 0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
@@ -19,13 +13,12 @@ background_mode = 3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
 
-[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("dialogue_caller", "spawn_point", "camera_bounds_tl", "camer_bounds_br")]
-script = ExtResource("1_exf2f")
-dialogue_caller = NodePath("DiagCaller")
+[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
+script = ExtResource("1_6pg1t")
 spawn_point = NodePath("Markers/Spawn")
-scene_data = SubResource("Resource_ejho4")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
+diag_caller = NodePath("DiagCaller")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10
@@ -87,3 +80,9 @@ camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
 
 [node name="DiagCaller" parent="." instance=ExtResource("12_ov2kw")]
 dialogue_resource = ExtResource("13_d5x7f")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

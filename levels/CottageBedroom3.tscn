@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsigvoyoqme3i"]
+[gd_scene load_steps=10 format=3 uid="uid://bsigvoyoqme3i"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_3.gd" id="1_1wu6x"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_0w7r1"]
+[ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="4_wv88s"]
+[ext_resource type="Texture2D" uid="uid://cs4stldhajpfr" path="res://assets/sprites/environment/clue2.tres" id="5_fd4sw"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_iy7ay"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
@@ -10,6 +12,9 @@
 background_mode = 3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83hyr"]
+size = Vector2(19, 36)
 
 [node name="CottageBedroom3" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
 script = ExtResource("1_1wu6x")
@@ -71,3 +76,28 @@ position = Vector2(0, 14)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
 environment = SubResource("Environment_u1bqs")
 camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
+
+[node name="Closeup" parent="." node_paths=PackedStringArray("camera", "interact_obj") instance=ExtResource("4_wv88s")]
+position = Vector2(135, 97)
+camera = NodePath("Camera2D")
+interact_obj = NodePath("CanvasLayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Closeup"]
+position = Vector2(0.5, 8)
+shape = SubResource("RectangleShape2D_83hyr")
+
+[node name="Camera2D" type="Camera2D" parent="Closeup"]
+position = Vector2(1, -2)
+enabled = false
+zoom = Vector2(12, 12)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Closeup"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Closeup/CanvasLayer"]
+position = Vector2(102, 61)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_fd4sw")
+
+[connection signal="on_closeup" from="Closeup" to="." method="_on_closeup_on_closeup"]
+[connection signal="on_closeup_exit" from="Closeup" to="." method="_on_closeup_on_closeup_exit"]

@@ -3,16 +3,22 @@ extends Node
 
 enum INTERACTIONS {DOOR, CHARACTER, CLOSEUP, KEY}
 var scene_data:SceneData
-var spec_exec:Array[int] = []
+# These are special executions, 
+var spec_execs_list:Array[int] = []
+
+# These are sepcials that a scene can execute if available in the
+# `spec_execs_list` list
 enum specs {
-		BEDROOM1_LOUD_SOUND_N_MUSIC,
-		BEDROOM4_TAKEN_LAST_CLUE,
-		COTTAGEMID_FIGURE_SIGHTING,
+	COTTAGEENTRANCE_LIGHT_FLICKER,
+	BEDROOM1_LOUD_SOUND_N_MUSIC,
+	BEDROOM4_TAKEN_LAST_CLUE,
+	COTTAGEMID_FIGURE_SIGHTING,
 	}
 
+# Add all the special execs at the start.
 func _init():
 	for x in range(len(specs)):
-		spec_exec.append(x)
+		spec_execs_list.append(x)
 
 # Take signals and exec funcs here.
 func change_scene(new_scene:PackedScene, _data:SceneData=null):

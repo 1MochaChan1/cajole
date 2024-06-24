@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://wcesguafkw2f"]
+[gd_scene load_steps=17 format=3 uid="uid://wcesguafkw2f"]
 
 [ext_resource type="Script" path="res://levels/cottage_mid.gd" id="1_xth3v"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_6viwn"]
+[ext_resource type="Texture2D" uid="uid://48ic3n7ms6md" path="res://assets/sprites/environment/padlock.tres" id="5_1rkir"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="6_1u5r2"]
+[ext_resource type="Texture2D" uid="uid://m7g78fakx83b" path="res://assets/sprites/character/monster_sighting.png" id="10_p6tji"]
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="10_tiffb"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="11_ae0mt"]
 [ext_resource type="FontFile" uid="uid://bwehnpvllpkts" path="res://assets/ui/m5x7.ttf" id="11_fcy3o"]
@@ -19,8 +21,17 @@ background_mode = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2u87"]
 size = Vector2(20, 35)
 
+[sub_resource type="Animation" id="Animation_cxhv7"]
+resource_name = "blink"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4fnmq"]
+_data = {
+"blink": SubResource("Animation_cxhv7")
+}
+
 [node name="CottageMid" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
 script = ExtResource("1_xth3v")
+passcode = 191246
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
@@ -59,12 +70,12 @@ format = 2
 layer_0/name = "Ground"
 layer_0/tile_data = PackedInt32Array(22, 589824, 0, -65514, 589824, 0, -131050, 458752, 0, 21, 589824, 0, -65515, 589824, 0, -131051, 458752, 0, 20, 589824, 0, -65516, 589824, 0, -131052, 458752, 0, 19, 589824, 0, -65517, 589824, 0, -131053, 458752, 0, 18, 589824, 0, -65518, 589824, 0, -131054, 458752, 0, 17, 589824, 0, -65519, 589824, 0, -131055, 458752, 0, 16, 589824, 0, -65520, 589824, 0, -131056, 458752, 0, 15, 589824, 0, -65521, 589824, 0, -131057, 458752, 0, 14, 589824, 0, -65522, 589824, 0, -131058, 458752, 0, 13, 589824, 0, -65523, 589824, 0, -131059, 458752, 0, 12, 589824, 0, -65524, 589824, 0, -131060, 458752, 0, 11, 589824, 0, -65525, 589824, 0, -131061, 458752, 0, 10, 589824, 0, -65526, 589824, 0, -131062, 458752, 0, 9, 589824, 0, -65527, 589824, 0, -131063, 458752, 0, 8, 589824, 0, -65528, 589824, 0, -131064, 458752, 0, 7, 589824, 0, -65529, 589824, 0, -131065, 458752, 0, 6, 589824, 0, -65530, 589824, 0, -131066, 458752, 0, 5, 589824, 0, -65531, 589824, 0, -131067, 458752, 0, 4, 589824, 0, -65532, 589824, 0, -131068, 458752, 0, 3, 589824, 0, -65533, 589824, 0, -131069, 458752, 0, 2, 589824, 0, -65534, 589824, 0, -131070, 458752, 0, 1, 589824, 0, -65535, 589824, 0, -131071, 458752, 0, 0, 393216, 1, -65536, 393216, 1, -131072, 131072, 2, 65536, 131072, 3, 65537, 393216, 0, 65538, 393216, 0, 65539, 393216, 0, 65540, 393216, 0, 65541, 393216, 0, 65542, 393216, 0, 65543, 393216, 0, 65544, 393216, 0, 65545, 393216, 0, 65546, 393216, 0, 65547, 393216, 0, 65555, 393216, 0, 65556, 393216, 0, 65557, 393216, 0, 65558, 393216, 0, 65554, 393216, 0, 65553, 393216, 0, 65552, 393216, 0, 65551, 393216, 0, 65550, 393216, 0, 65549, 393216, 0, 65548, 393216, 0, -131049, 196608, 2, -65513, 458752, 1, 23, 458752, 1, 65559, 196608, 3)
 layer_1/name = "Objects"
-layer_1/tile_data = PackedInt32Array(14, 131072, 8, 21, 0, 8, 8, 0, 8, 2, 0, 8)
+layer_1/tile_data = PackedInt32Array(14, 0, 8, 21, 0, 8, 8, 131072, 8, 2, 0, 8, 17, 393216, 9, 12, 131072, 12, -131069, 262144, 12, -131062, 262144, 12, -131055, 262144, 12, 6, 524288, 11, 65540, 131072, 11, 65542, 262144, 10, 19, 393216, 11, 4, 0, 12, 65548, 131072, 11, 65546, 262144, 11, 10, 524288, 11)
 
 [node name="Doors" type="Node2D" parent="Platform"]
 
 [node name="Door4" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("6_1u5r2")]
-position = Vector2(136, 1)
+position = Vector2(233, 1)
 leads_to_scene = "res://levels/CottageBedroom2.tscn"
 door_number = 4
 spawn_loc = NodePath("Spawner")
@@ -91,7 +102,7 @@ spawn_loc = NodePath("Spawner")
 position = Vector2(0, 14)
 
 [node name="CloseupLock" parent="Platform" node_paths=PackedStringArray("camera", "interact_obj") instance=ExtResource("10_tiffb")]
-position = Vector2(233, 3)
+position = Vector2(136, 3)
 camera = NodePath("Camera2D")
 interact_obj = NodePath("CanvasLayer")
 
@@ -115,6 +126,21 @@ anchor_bottom = 1.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Platform/CloseupLock/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform/CloseupLock/CanvasLayer/Control/BoxContainer"]
+scale = Vector2(4, 4)
+texture = ExtResource("5_1rkir")
 
 [node name="Label" type="Label" parent="Platform/CloseupLock/CanvasLayer/Control"]
 layout_mode = 1
@@ -154,6 +180,16 @@ max_length = 6
 
 [node name="DiagCaller" parent="." instance=ExtResource("11_ae0mt")]
 dialogue_resource = ExtResource("13_wk0u5")
+
+[node name="MonsterAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4fnmq")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(237, 109)
+texture = ExtResource("10_p6tji")
+hframes = 14
 
 [connection signal="on_closeup" from="Platform/CloseupLock" to="." method="_on_closeup_lock_on_closeup"]
 [connection signal="on_closeup_exit" from="Platform/CloseupLock" to="." method="_on_closeup_lock_on_closeup_exit"]
