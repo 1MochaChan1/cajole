@@ -1,24 +1,94 @@
-[gd_scene load_steps=9 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=12 format=3 uid="uid://c135ki1wh8yif"]
 
 [ext_resource type="Script" path="res://levels/cottage_entrance.gd" id="1_6pg1t"]
+[ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="2_38xak"]
+[ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="3_e7xav"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="3_ecjco"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="12_ov2kw"]
 [ext_resource type="Resource" uid="uid://gj7fpd5dggmt" path="res://core/dialogues/doors.dialogue" id="13_d5x7f"]
 
+[sub_resource type="Animation" id="Animation_tiuf1"]
+resource_name = "fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hddl0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eia55"]
+_data = {
+"RESET": SubResource("Animation_hddl0"),
+"fade": SubResource("Animation_tiuf1")
+}
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
-[sub_resource type="Environment" id="Environment_u1bqs"]
-background_mode = 3
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
-
-[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
+[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("lights", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller", "anim_player")]
 script = ExtResource("1_6pg1t")
+lights = [NodePath("Lighting/PointLight2D5"), NodePath("Lighting/PointLight2D6")]
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
 diag_caller = NodePath("DiagCaller")
+anim_player = NodePath("CanvasLayer2/AnimationPlayer")
+
+[node name="Lighting" type="Node" parent="."]
+
+[node name="WorldEnvironment" parent="Lighting" instance=ExtResource("2_38xak")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting"]
+position = Vector2(-14, -59)
+color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+energy = 0.97
+blend_mode = 2
+
+[node name="PointLight2D5" parent="Lighting" instance=ExtResource("3_e7xav")]
+position = Vector2(42, 82)
+lerp_weight = 0.01
+
+[node name="PointLight2D6" parent="Lighting" instance=ExtResource("3_e7xav")]
+position = Vector2(154, 82)
+lerp_weight = 0.01
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2"]
+libraries = {
+"": SubResource("AnimationLibrary_eia55")
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10
@@ -73,10 +143,6 @@ spawn_loc = NodePath("Spawner")
 
 [node name="Spawner" type="Marker2D" parent="Platforms/Doors/Door3"]
 position = Vector2(-1, 16)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Platforms"]
-environment = SubResource("Environment_u1bqs")
-camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
 
 [node name="DiagCaller" parent="." instance=ExtResource("12_ov2kw")]
 dialogue_resource = ExtResource("13_d5x7f")

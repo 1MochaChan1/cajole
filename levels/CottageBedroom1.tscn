@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://daw1qfyavbmqf"]
+[gd_scene load_steps=10 format=3 uid="uid://daw1qfyavbmqf"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_1.gd" id="1_0ai0x"]
+[ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="2_iqflx"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_ykodx"]
+[ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="3_yvos7"]
 [ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="5_r6ufx"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="6_tsu1q"]
 
@@ -17,6 +19,23 @@ script = ExtResource("1_0ai0x")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
+
+[node name="Lighting" type="Node" parent="."]
+
+[node name="WorldEnvironment" parent="Lighting" instance=ExtResource("2_iqflx")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting"]
+color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+energy = 0.97
+blend_mode = 2
+
+[node name="PointLight2D5" parent="Lighting" instance=ExtResource("3_yvos7")]
+position = Vector2(168, 81)
+lerp_weight = 0.01
+
+[node name="PointLight2D6" parent="Lighting" instance=ExtResource("3_yvos7")]
+position = Vector2(57, 81)
+lerp_weight = 0.01
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10

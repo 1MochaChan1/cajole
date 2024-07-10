@@ -32,7 +32,7 @@ camer_bounds_br = NodePath("CameraBounds/BottomRight")
 layer = -100
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-modulate = Color(0.0606387, 0.0617157, 0.0514035, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(178.5, 96.3417)
 scale = Vector2(377, 213.317)
 texture = SubResource("CanvasTexture_cn208")
@@ -73,7 +73,7 @@ texture = ExtResource("2_5ola1")
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Platform/Lights"]
 position = Vector2(300, 0)
 color = Color(0.133196, 0.133196, 0.133196, 1)
-energy = 0.85
+energy = 0.95
 blend_mode = 2
 
 [node name="Lamp" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
@@ -101,21 +101,27 @@ position = Vector2(93.2644, 0)
 metadata/_edit_group_ = true
 
 [node name="Platform2" type="Sprite2D" parent="Platform/PlatformSprites"]
-position = Vector2(600, 0)
+position = Vector2(600, -18.1122)
+scale = Vector2(1, 1.25)
 texture = ExtResource("5_ufjoc")
 centered = false
 
 [node name="Platform5" type="Sprite2D" parent="Platform/PlatformSprites"]
-position = Vector2(800, 0)
+position = Vector2(800, -18.1122)
+scale = Vector2(1, 1.25)
 texture = ExtResource("5_ufjoc")
 centered = false
 
 [node name="Platform3" type="Sprite2D" parent="Platform/PlatformSprites"]
+position = Vector2(0, -18.1122)
+scale = Vector2(1, 1.25)
 texture = ExtResource("5_ufjoc")
 centered = false
 offset = Vector2(200, 0)
 
 [node name="Platform4" type="Sprite2D" parent="Platform/PlatformSprites"]
+position = Vector2(0, -18.1122)
+scale = Vector2(1, 1.25)
 texture = ExtResource("5_ufjoc")
 centered = false
 offset = Vector2(400, 0)
@@ -191,7 +197,7 @@ environment = SubResource("Environment_qyx8m")
 position = Vector2(607.114, 107.778)
 
 [node name="Stranger" parent="." instance=ExtResource("9_bth54")]
-position = Vector2(358.895, 70.9225)
+position = Vector2(358.895, 72.4565)
 
 [node name="Door" parent="." instance=ExtResource("10_kp8rf")]
 position = Vector2(600.043, 51.5)

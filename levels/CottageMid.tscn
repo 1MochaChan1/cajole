@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://wcesguafkw2f"]
+[gd_scene load_steps=20 format=3 uid="uid://wcesguafkw2f"]
 
 [ext_resource type="Script" path="res://levels/cottage_mid.gd" id="1_xth3v"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_6viwn"]
+[ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="2_ietik"]
+[ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="3_nl8q1"]
 [ext_resource type="Texture2D" uid="uid://48ic3n7ms6md" path="res://assets/sprites/environment/padlock.tres" id="5_1rkir"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="6_1u5r2"]
-[ext_resource type="Texture2D" uid="uid://m7g78fakx83b" path="res://assets/sprites/character/monster_sighting.png" id="10_p6tji"]
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="10_tiffb"]
+[ext_resource type="Texture2D" uid="uid://bghwf8nqggdno" path="res://assets/sprites/character/monster_sighting-sheet.png" id="10_uapnd"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="11_ae0mt"]
 [ext_resource type="FontFile" uid="uid://bwehnpvllpkts" path="res://assets/ui/m5x7.ttf" id="11_fcy3o"]
 [ext_resource type="FontFile" uid="uid://gampf8jdembm" path="res://assets/ui/Pixie.ttf" id="12_ripud"]
@@ -13,29 +15,116 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
-[sub_resource type="Environment" id="Environment_u1bqs"]
-background_mode = 3
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2u87"]
 size = Vector2(20, 35)
 
+[sub_resource type="Animation" id="Animation_k8w24"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_cxhv7"]
 resource_name = "blink"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sighting:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sighting:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dqbgg"]
+resource_name = "vanish"
+length = 0.54
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sighting:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sighting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.525),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4fnmq"]
 _data = {
-"blink": SubResource("Animation_cxhv7")
+"RESET": SubResource("Animation_k8w24"),
+"blink": SubResource("Animation_cxhv7"),
+"vanish": SubResource("Animation_dqbgg")
 }
 
-[node name="CottageMid" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fv7oo"]
+
+[node name="CottageMid" type="Node2D" node_paths=PackedStringArray("ap_monster_sighting", "sighting_trigger_l", "sighting_trigger_r", "light_to_flicker", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
 script = ExtResource("1_xth3v")
-passcode = 191246
+passcode = 591206
+ap_monster_sighting = NodePath("MonsterAnimationPlayer")
+sighting_trigger_l = NodePath("EventTriggers/SightingTriggerL/CollisionShape2D")
+sighting_trigger_r = NodePath("EventTriggers/SightingTriggerR/CollisionShape2D")
+light_to_flicker = NodePath("Lighting/PointLight2D5")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
 diag_caller = NodePath("DiagCaller")
+
+[node name="Lighting" type="Node" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting"]
+color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+energy = 0.97
+blend_mode = 2
+
+[node name="PointLight2D3" parent="Lighting" instance=ExtResource("2_ietik")]
+position = Vector2(56, 81)
+lerp_weight = 0.01
+
+[node name="PointLight2D4" parent="Lighting" instance=ExtResource("2_ietik")]
+position = Vector2(169, 81)
+lerp_weight = 0.01
+
+[node name="PointLight2D5" parent="Lighting" instance=ExtResource("2_ietik")]
+position = Vector2(282, 81)
+lerp_weight = 0.01
+
+[node name="WorldEnvironment" parent="Lighting" instance=ExtResource("3_nl8q1")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10
@@ -49,17 +138,13 @@ texture = SubResource("CanvasTexture_py7uk")
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="Spawn" type="Marker2D" parent="Markers"]
-position = Vector2(21, 110)
+position = Vector2(310, 110)
 
 [node name="TL" type="Marker2D" parent="Markers"]
 position = Vector2(0, 39)
 
 [node name="BR" type="Marker2D" parent="Markers"]
 position = Vector2(383, 145)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_u1bqs")
-camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
 
 [node name="Platform" type="Node2D" parent="."]
 position = Vector2(0, 95)
@@ -185,12 +270,38 @@ dialogue_resource = ExtResource("13_wk0u5")
 libraries = {
 "": SubResource("AnimationLibrary_4fnmq")
 }
+autoplay = "RESET"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(237, 109)
-texture = ExtResource("10_p6tji")
-hframes = 14
+[node name="Sighting" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(235, 109)
+texture = ExtResource("10_uapnd")
+hframes = 12
+frame = 11
+
+[node name="EventTriggers" type="Node2D" parent="."]
+
+[node name="SightingTriggerL" type="Area2D" parent="EventTriggers"]
+position = Vector2(187, 114)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EventTriggers/SightingTriggerL"]
+position = Vector2(7, 0)
+shape = SubResource("RectangleShape2D_fv7oo")
+disabled = true
+
+[node name="SightingTriggerR" type="Area2D" parent="EventTriggers"]
+position = Vector2(278, 114)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EventTriggers/SightingTriggerR"]
+shape = SubResource("RectangleShape2D_fv7oo")
+disabled = true
 
 [connection signal="on_closeup" from="Platform/CloseupLock" to="." method="_on_closeup_lock_on_closeup"]
 [connection signal="on_closeup_exit" from="Platform/CloseupLock" to="." method="_on_closeup_lock_on_closeup_exit"]
 [connection signal="text_changed" from="Platform/CloseupLock/CanvasLayer/Control/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="body_entered" from="EventTriggers/SightingTriggerL" to="." method="_on_sighting_trigger_l_body_entered"]
+[connection signal="body_entered" from="EventTriggers/SightingTriggerR" to="." method="_on_sighting_trigger_r_body_entered"]

@@ -129,7 +129,7 @@ position = Vector2(-281, -66)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Platform/Lights"]
 color = Color(0.133196, 0.133196, 0.133196, 1)
-energy = 0.85
+energy = 0.95
 blend_mode = 2
 
 [node name="Lamp" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
@@ -138,7 +138,7 @@ rotation = 3.14159
 scale = Vector2(-1.25, -1.5)
 
 [node name="Lamp2" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
-position = Vector2(474, 59)
+position = Vector2(482, 43)
 rotation = 3.30024
 scale = Vector2(1.5, -1.5)
 
@@ -148,8 +148,8 @@ rotation = 3.09519
 scale = Vector2(-1.5, -1.5)
 
 [node name="Lamp4" parent="Platform/Lights" instance=ExtResource("7_uvlue")]
-position = Vector2(772.569, 57.0885)
-rotation = 2.87979
+position = Vector2(777, 45)
+rotation = 3.03731
 scale = Vector2(1.5, -1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
@@ -175,21 +175,21 @@ shape = SubResource("SegmentShape2D_xoua8")
 position = Vector2(541, 21)
 shape = SubResource("SegmentShape2D_xoua8")
 
+[node name="Sprite2D2" type="Sprite2D" parent="Platform"]
+position = Vector2(100, -10)
+texture = ExtResource("6_7235o")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Platform"]
+position = Vector2(298, -10)
+texture = ExtResource("6_7235o")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Platform"]
+position = Vector2(497, -10)
+texture = ExtResource("6_7235o")
+
 [node name="PlatformCollider" type="CollisionShape2D" parent="Platform"]
-position = Vector2(0, 21)
+position = Vector2(0, 19)
 shape = SubResource("SegmentShape2D_0j4sq")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Platform/PlatformCollider"]
-position = Vector2(100, -31)
-texture = ExtResource("6_7235o")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Platform/PlatformCollider"]
-position = Vector2(298, -31)
-texture = ExtResource("6_7235o")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Platform/PlatformCollider"]
-position = Vector2(497, -31)
-texture = ExtResource("6_7235o")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
 environment = SubResource("Environment_u1bqs")

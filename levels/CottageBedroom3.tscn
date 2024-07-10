@@ -2,16 +2,13 @@
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_3.gd" id="1_1wu6x"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_0w7r1"]
+[ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="2_vs0f4"]
+[ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="3_2afkw"]
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="4_wv88s"]
 [ext_resource type="Texture2D" uid="uid://cs4stldhajpfr" path="res://assets/sprites/environment/clue2.tres" id="5_fd4sw"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_iy7ay"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
-
-[sub_resource type="Environment" id="Environment_u1bqs"]
-background_mode = 3
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83hyr"]
 size = Vector2(19, 36)
@@ -21,6 +18,23 @@ script = ExtResource("1_1wu6x")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
+
+[node name="Lighting" type="Node" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting"]
+color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+energy = 0.97
+blend_mode = 2
+
+[node name="PointLight2D3" parent="Lighting" instance=ExtResource("2_vs0f4")]
+position = Vector2(56, 81)
+lerp_weight = 0.01
+
+[node name="PointLight2D4" parent="Lighting" instance=ExtResource("2_vs0f4")]
+position = Vector2(185, 82)
+lerp_weight = 0.01
+
+[node name="WorldEnvironment" parent="Lighting" instance=ExtResource("3_2afkw")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10
@@ -72,10 +86,6 @@ spawn_loc = NodePath("Spawner")
 
 [node name="Spawner" type="Marker2D" parent="Platform/Doors/Door7"]
 position = Vector2(0, 14)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
-environment = SubResource("Environment_u1bqs")
-camera_attributes = SubResource("CameraAttributesPractical_4uxb2")
 
 [node name="Closeup" parent="." node_paths=PackedStringArray("camera", "interact_obj") instance=ExtResource("4_wv88s")]
 position = Vector2(135, 97)

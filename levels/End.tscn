@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi41ede33hns6"]
+
+[ext_resource type="Script" path="res://levels/end.gd" id="1_dipqy"]
+
+[sub_resource type="Animation" id="Animation_vmioc"]
+resource_name = "zoom"
+length = 3.0
+
+[sub_resource type="Animation" id="Animation_jmucq"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2co3u"]
+_data = {
+"RESET": SubResource("Animation_jmucq"),
+"zoom": SubResource("Animation_vmioc")
+}
+
+[node name="TestScene2" type="Node2D" node_paths=PackedStringArray("anim_player")]
+script = ExtResource("1_dipqy")
+anim_player = NodePath("CanvasLayer/AnimationPlayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0177324, 0.0177324, 0.0177324, 1)
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+modulate = Color(1, 1, 1, 0.713726)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Thank You for Playing!!
+This was just a demo to showcase my pixel art assets"
+fit_content = true
+scroll_active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_2co3u")
+}

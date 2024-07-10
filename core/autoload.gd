@@ -26,3 +26,6 @@ func change_scene(new_scene:PackedScene, _data:SceneData=null):
 	if(_data):
 		self.scene_data = _data
 
+func reset():
+	spec_execs_list = []
+	scene_data = null
