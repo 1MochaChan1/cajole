@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://daw1qfyavbmqf"]
+[gd_scene load_steps=12 format=3 uid="uid://daw1qfyavbmqf"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_1.gd" id="1_0ai0x"]
+[ext_resource type="AudioStream" uid="uid://bxesjrdygf1aq" path="res://assets/sounds/ambience_house_1.mp3" id="2_bdhy8"]
 [ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="2_iqflx"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_ykodx"]
+[ext_resource type="AudioStream" uid="uid://7w6tftu8qoyi" path="res://assets/sounds/sfx_walk_house_2.mp3" id="3_0y0vv"]
 [ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="3_yvos7"]
 [ext_resource type="PackedScene" uid="uid://loxg0ss1u61" path="res://core/components/keys/Key.tscn" id="5_r6ufx"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="6_tsu1q"]
@@ -14,11 +16,17 @@ background_mode = 3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4uxb2"]
 
-[node name="CottageBedroom1" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+[node name="CottageBedroom1" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_0ai0x")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
+walking_sound = NodePath("AudioStreamPlayer2D")
+ambience_mp3 = ExtResource("2_bdhy8")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0y0vv")
+volume_db = -35.0
 
 [node name="Lighting" type="Node" parent="."]
 

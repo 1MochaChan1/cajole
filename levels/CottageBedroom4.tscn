@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8axp6f77j4r2"]
+[gd_scene load_steps=12 format=3 uid="uid://b8axp6f77j4r2"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_4.gd" id="1_5i3s2"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_1g8vm"]
+[ext_resource type="AudioStream" uid="uid://bxesjrdygf1aq" path="res://assets/sounds/ambience_house_1.mp3" id="2_42w28"]
 [ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="2_bypjh"]
 [ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="3_anhu6"]
+[ext_resource type="AudioStream" uid="uid://7w6tftu8qoyi" path="res://assets/sounds/sfx_walk_house_2.mp3" id="3_g5bo0"]
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="4_wq5u3"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_a3f13"]
 [ext_resource type="Texture2D" uid="uid://bspnyd1m5sp88" path="res://assets/sprites/environment/clue3.tres" id="5_kry5w"]
@@ -13,11 +15,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chdd6"]
 size = Vector2(19, 36)
 
-[node name="CottageBedroom4" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+[node name="CottageBedroom4" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_5i3s2")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
+walking_sound = NodePath("AudioStreamPlayer2D")
+ambience_mp3 = ExtResource("2_42w28")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_g5bo0")
+volume_db = -35.0
 
 [node name="Lighting" type="Node" parent="."]
 

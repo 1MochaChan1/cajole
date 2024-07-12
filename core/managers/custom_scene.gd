@@ -10,15 +10,23 @@ class_name CustomScene extends Node2D
 @export var anim_player:AnimationPlayer
 @export var can_spawn_player:bool=true
 
+## SOUNDS ##
+@export var walking_sound:AudioStreamPlayer2D
+@export var ambience_mp3:AudioStreamMP3
+
 signal scene_changed(new_scene_data:SceneData)
 
 func _ready():
 	initialize()
 
 func initialize():
+	
 	if(not (Globals.scene_data)):
 		Globals.scene_data = SceneData.new()
 	scene_data = Globals.scene_data
+	if(ambience_mp3):
+		Globals.ambience_mp3 = ambience_mp3
+		Globals.play_ambience()
 	if (can_spawn_player):
 		spawn_player()
 	remove_extra_keys()

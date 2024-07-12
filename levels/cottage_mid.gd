@@ -22,9 +22,6 @@ func _ready():
 func trigger_figure_sighting():
 	if((_figure_sighting in Globals.spec_execs_list) and 
 		(_taken_br4_clue not in Globals.spec_execs_list)):
-		light_to_flicker.highest_light_strength = 5
-		light_to_flicker.lowest_light_strength = 1
-		
 		light_to_flicker.flicker = true
 		ap_monster_sighting.play("blink")
 		toggle_colliders(true)

@@ -1,5 +1,8 @@
 extends Node
 
+var ambience_player:AudioStreamPlayer2D
+var ambience_mp3:AudioStreamMP3
+var _curr_ambience_mp3:AudioStreamMP3
 
 enum INTERACTIONS {DOOR, CHARACTER, CLOSEUP, KEY}
 var scene_data:SceneData
@@ -17,6 +20,9 @@ enum specs {
 
 # Add all the special execs at the start.
 func _init():
+	ambience_player = AudioStreamPlayer2D.new()
+	ambience_player.volume_db = -15.0
+	add_child(ambience_player)
 	for x in range(len(specs)):
 		spec_execs_list.append(x)
 
@@ -29,3 +35,15 @@ func change_scene(new_scene:PackedScene, _data:SceneData=null):
 func reset():
 	spec_execs_list = []
 	scene_data = null
+
+
+
+func play_ambience():
+	if(ambience_mp3):
+		if(not(_curr_ambience_mp3 == ambience_mp3)):
+			ambience_player.stop()
+			_curr_ambience_mp3 = ambience_mp3
+			ambience_player.stream = _curr_ambience_mp3
+			ambience_player.play()
+		elif (not ambience_player.playing):
+			ambience_player.play()

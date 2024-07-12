@@ -1,7 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://wcesguafkw2f"]
+[gd_scene load_steps=22 format=3 uid="uid://wcesguafkw2f"]
 
 [ext_resource type="Script" path="res://levels/cottage_mid.gd" id="1_xth3v"]
+[ext_resource type="AudioStream" uid="uid://7w6tftu8qoyi" path="res://assets/sounds/sfx_walk_house_2.mp3" id="2_3jc7j"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_6viwn"]
+[ext_resource type="AudioStream" uid="uid://bxesjrdygf1aq" path="res://assets/sounds/ambience_house_1.mp3" id="2_dnlrc"]
 [ext_resource type="PackedScene" uid="uid://dkmlxej3ra7jm" path="res://core/components/props/CottageLights.tscn" id="2_ietik"]
 [ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="3_nl8q1"]
 [ext_resource type="Texture2D" uid="uid://48ic3n7ms6md" path="res://assets/sprites/environment/padlock.tres" id="5_1rkir"]
@@ -93,7 +95,7 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fv7oo"]
 
-[node name="CottageMid" type="Node2D" node_paths=PackedStringArray("ap_monster_sighting", "sighting_trigger_l", "sighting_trigger_r", "light_to_flicker", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller")]
+[node name="CottageMid" type="Node2D" node_paths=PackedStringArray("ap_monster_sighting", "sighting_trigger_l", "sighting_trigger_r", "light_to_flicker", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller", "walking_sound")]
 script = ExtResource("1_xth3v")
 passcode = 591206
 ap_monster_sighting = NodePath("MonsterAnimationPlayer")
@@ -104,6 +106,12 @@ spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
 diag_caller = NodePath("DiagCaller")
+walking_sound = NodePath("AudioStreamPlayer2D")
+ambience_mp3 = ExtResource("2_dnlrc")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3jc7j")
+volume_db = -35.0
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -122,7 +130,9 @@ lerp_weight = 0.01
 
 [node name="PointLight2D5" parent="Lighting" instance=ExtResource("2_ietik")]
 position = Vector2(282, 81)
-lerp_weight = 0.01
+flicker = true
+lowest_light_strength = 1.0
+highest_light_strength = 2.0
 
 [node name="WorldEnvironment" parent="Lighting" instance=ExtResource("3_nl8q1")]
 

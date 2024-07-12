@@ -161,9 +161,10 @@ autoplay = "idle"
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_fwbnl")
 texture = ExtResource("2_phmsw")
-hframes = 8
+hframes = 4
+frame = 2
 region_enabled = true
-region_rect = Rect2(0, 16, 128, 16)
+region_rect = Rect2(0, 0, 64, 16)
 
 [node name="InteractableDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -198,3 +199,6 @@ dialogue_resource = ExtResource("4_1xx27")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actionable"]
 shape = SubResource("RectangleShape2D_4vqt2")
+
+[node name="WalkTimer" type="Timer" parent="."]
+one_shot = true

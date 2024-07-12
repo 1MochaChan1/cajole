@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=17 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
+[ext_resource type="AudioStream" uid="uid://cahfdn5mmr2w8" path="res://assets/sounds/ambience_forest.mp3" id="2_5t14n"]
 [ext_resource type="Texture2D" uid="uid://c4jky4ccutd4a" path="res://assets/sprites/environment/house2.tres" id="3_njn0j"]
 [ext_resource type="PackedScene" uid="uid://bbsqsg253fdlg" path="res://core/components/props/Lamp.tscn" id="4_l6fws"]
 [ext_resource type="Texture2D" uid="uid://behey2gma3loh" path="res://assets/sprites/environment/Platform.png" id="5_ufjoc"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cr8esfsvqk043" path="res://assets/sprites/environment/MG2.png" id="8_e0tym"]
 [ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_bth54"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
+[ext_resource type="AudioStream" uid="uid://5cpbt85pr0xs" path="res://assets/sounds/sfx_forest_walk.mp3" id="11_2s68j"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_cn208"]
 
@@ -22,11 +24,17 @@ b = Vector2(0, 80.5)
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
 
-[node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br")]
+[node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_orgjk")
 spawn_point = NodePath("SpawnPoint")
 camera_bounds_tl = NodePath("CameraBounds/TopLeft")
 camer_bounds_br = NodePath("CameraBounds/BottomRight")
+walking_sound = NodePath("AudioStreamPlayer2D")
+ambience_mp3 = ExtResource("2_5t14n")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_2s68j")
+volume_db = -25.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -100

@@ -7,6 +7,6 @@ func _ready():
 	#await anim_player.animation_finished
 
 func _physics_process(delta):
-	if(Input.is_action_pressed("ui_accept")):
+	if(Input.is_action_pressed("ui_cancel")):
 		var menu = preload("res://levels/Menu.tscn")
 		change_scene(menu)

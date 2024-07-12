@@ -43,6 +43,7 @@ func _physics_process(_delta):
 	velocity.x = lerp(velocity.x, x_axis, lerp_speed)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	handle_animation()
+	#handle_sound()
 	velocity.y += GRAVITY
 	if(velocity.x < 0):
 		flip_char(-1)
@@ -122,6 +123,8 @@ func handle_interact(_interaction:Globals.INTERACTIONS,_body=null):
 				
 
 
+
+
 func enter_door(door:Door):
 	_next_scene = door.leads_to
 	_changing_scene = true
@@ -131,14 +134,28 @@ func enter_door(door:Door):
 func handle_animation():
 	if(abs(velocity.x) > 1):
 		animation_player.play('run')
+		if($WalkTimer.is_stopped()):
+			var audio_len = _curr_scene.walking_sound.stream.get_length()
+			_curr_scene.walking_sound.pitch_scale = randf_range(.75,2.5)
+			_curr_scene.walking_sound.play(0.5)
+			$WalkTimer.start(0.3)
 	else:
+		_curr_scene.walking_sound.stop()
 		animation_player.play('idle')
 	
 	if(_sprinting):
 		animation_player.speed_scale = 1.5
+		_curr_scene.walking_sound.pitch_scale = randf_range(1.5,3)
 	else:
 		animation_player.speed_scale = 1
 
+func handle_audio():
+	# WALK - 0.3 seconds
+	if($WalkTimer.is_stopped() and velocity.x > 0):
+		var audio_len = _curr_scene.walking_sound.stream.get_length()
+		_curr_scene.walking_sound.pitch_scale = randf_range(1.0, 2.0)
+		_curr_scene.walking_sound.play(randf_range(0.0, audio_len))
+		$WalkTimer.start(0.3)
 
 func handle_label():
 	var actionables: = actionable_detector.get_overlapping_areas()
