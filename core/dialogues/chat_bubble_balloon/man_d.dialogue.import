@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://ctwmrinlsrnb2"
+path="res://.godot/imported/man_d.dialogue-0dedb6327aa362a5ba8b70d4db409f81.tres"
+
+[deps]
+
+source_file="res://core/dialogues/chat_bubble_balloon/man_d.dialogue"
+dest_files=["res://.godot/imported/man_d.dialogue-0dedb6327aa362a5ba8b70d4db409f81.tres"]
+
+[params]
+
+defaults=true

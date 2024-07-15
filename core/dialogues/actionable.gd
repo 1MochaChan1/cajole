@@ -1,5 +1,5 @@
 class_name Actionable extends Area2D
-const Balloon = preload("res://core/dialogues/balloon.tscn")
+const Balloon = preload("res://core/dialogues/chat_bubble_balloon/balloon.tscn")
 
 @export var dialogue_resource:DialogueResource
 @export var dialogue_start:String

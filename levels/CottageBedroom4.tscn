@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8axp6f77j4r2"]
+[gd_scene load_steps=13 format=3 uid="uid://b8axp6f77j4r2"]
 
 [ext_resource type="Script" path="res://levels/cottage_bedroom_4.gd" id="1_5i3s2"]
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="2_1g8vm"]
@@ -9,14 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://do0n4uabtun0e" path="res://core/components/props/Closeup.tscn" id="4_wq5u3"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_a3f13"]
 [ext_resource type="Texture2D" uid="uid://bspnyd1m5sp88" path="res://assets/sprites/environment/clue3.tres" id="5_kry5w"]
+[ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="10_x3gu1"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chdd6"]
 size = Vector2(19, 36)
 
-[node name="CottageBedroom4" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
+[node name="CottageBedroom4" type="Node2D" node_paths=PackedStringArray("scene_name_label", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_5i3s2")
+scene_name = "Bedroom #4"
+scene_name_label = NodePath("LabelCanvas/Control/RichTextLabel")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
@@ -88,7 +91,7 @@ blend_mode = 2
 
 [node name="Door6" parent="Platform/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_a3f13")]
 position = Vector2(103, 1)
-leads_to_scene = "res://levels/CottageMid.tscn"
+leads_to_scene = "res://levels/CottageMiddle.tscn"
 door_number = 6
 spawn_loc = NodePath("Spawner")
 
@@ -116,6 +119,38 @@ visible = false
 position = Vector2(235, 82)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_kry5w")
+
+[node name="LabelCanvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="LabelCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LabelCanvas/Control"]
+clip_contents = false
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 0.415686)
+theme_override_fonts/normal_font = ExtResource("10_x3gu1")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
 
 [connection signal="on_closeup" from="Closeup" to="." method="_on_closeup_on_closeup"]
 [connection signal="on_closeup_exit" from="Closeup" to="." method="_on_closeup_on_closeup_exit"]

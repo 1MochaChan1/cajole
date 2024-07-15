@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://8nueph2myqfw"]
+[gd_scene load_steps=22 format=3 uid="uid://8nueph2myqfw"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_qj38e"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_s4ee0"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="11_3e4vg"]
 [ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_ysuec"]
 [ext_resource type="PackedScene" uid="uid://c135ki1wh8yif" path="res://levels/CottageEntrance.tscn" id="12_fvir4"]
+[ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="16_auaoy"]
 
 [sub_resource type="Resource" id="Resource_ejho4"]
 script = ExtResource("2_s4ee0")
@@ -33,8 +34,10 @@ b = Vector2(635, -1)
 [sub_resource type="Environment" id="Environment_u1bqs"]
 background_mode = 3
 
-[node name="VillageDeeper" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
+[node name="VillageDeeper" type="Node2D" node_paths=PackedStringArray("scene_name_label", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_qj38e")
+scene_name = "Village"
+scene_name_label = NodePath("LabelCanvas/Control/RichTextLabel")
 spawn_point = NodePath("Markers/Spawn")
 scene_data = SubResource("Resource_ejho4")
 camera_bounds_tl = NodePath("Markers/TL")
@@ -201,3 +204,35 @@ shape = SubResource("SegmentShape2D_0j4sq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Platform"]
 environment = SubResource("Environment_u1bqs")
+
+[node name="LabelCanvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="LabelCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LabelCanvas/Control"]
+clip_contents = false
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 0.415686)
+theme_override_fonts/normal_font = ExtResource("16_auaoy")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0

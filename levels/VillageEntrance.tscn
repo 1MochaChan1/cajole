@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=18 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://6v1vajww72xn" path="res://core/enemy/Stranger.tscn" id="9_bth54"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
 [ext_resource type="AudioStream" uid="uid://5cpbt85pr0xs" path="res://assets/sounds/sfx_forest_walk.mp3" id="11_2s68j"]
+[ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="13_swafy"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_cn208"]
 
@@ -24,8 +25,10 @@ b = Vector2(0, 80.5)
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
 
-[node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
+[node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("scene_name_label", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_orgjk")
+scene_name = "Crash Site"
+scene_name_label = NodePath("LabelCanvas/Control/RichTextLabel")
 spawn_point = NodePath("SpawnPoint")
 camera_bounds_tl = NodePath("CameraBounds/TopLeft")
 camer_bounds_br = NodePath("CameraBounds/BottomRight")
@@ -210,3 +213,35 @@ position = Vector2(358.895, 72.4565)
 [node name="Door" parent="." instance=ExtResource("10_kp8rf")]
 position = Vector2(600.043, 51.5)
 leads_to_scene = "res://levels/VillageDeeper.tscn"
+
+[node name="LabelCanvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="LabelCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LabelCanvas/Control"]
+clip_contents = false
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 0.415686)
+theme_override_fonts/normal_font = ExtResource("13_swafy")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0

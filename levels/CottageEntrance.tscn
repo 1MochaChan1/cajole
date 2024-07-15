@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c135ki1wh8yif"]
+[gd_scene load_steps=15 format=3 uid="uid://c135ki1wh8yif"]
 
 [ext_resource type="Script" path="res://levels/cottage_entrance.gd" id="1_6pg1t"]
 [ext_resource type="PackedScene" uid="uid://cp1r7lxmw65ux" path="res://core/components/props/CottageLightingEnvironment.tscn" id="2_38xak"]
@@ -7,6 +7,7 @@
 [ext_resource type="TileSet" uid="uid://7guefr8ha4lv" path="res://levels/TileMap.tres" id="3_ecjco"]
 [ext_resource type="AudioStream" uid="uid://7w6tftu8qoyi" path="res://assets/sounds/sfx_walk_house_2.mp3" id="3_l44cg"]
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="5_ucuqw"]
+[ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="10_76ajn"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="12_ov2kw"]
 [ext_resource type="Resource" uid="uid://gj7fpd5dggmt" path="res://core/dialogues/doors.dialogue" id="13_d5x7f"]
 
@@ -49,9 +50,11 @@ _data = {
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_py7uk"]
 
-[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("lights", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller", "anim_player", "walking_sound")]
+[node name="CottageEntrance" type="Node2D" node_paths=PackedStringArray("lights", "scene_name_label", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "diag_caller", "anim_player", "walking_sound")]
 script = ExtResource("1_6pg1t")
 lights = [NodePath("Lighting/PointLight2D5"), NodePath("Lighting/PointLight2D6")]
+scene_name = "Entrance"
+scene_name_label = NodePath("LabelCanvas/Control/RichTextLabel")
 spawn_point = NodePath("Markers/Spawn")
 camera_bounds_tl = NodePath("Markers/TL")
 camer_bounds_br = NodePath("Markers/BR")
@@ -135,7 +138,7 @@ position = Vector2(-18, -1)
 
 [node name="Door2" parent="Platforms/Doors" node_paths=PackedStringArray("spawn_loc") groups=["Doors"] instance=ExtResource("5_ucuqw")]
 position = Vector2(-255, 2)
-leads_to_scene = "res://levels/CottageMid.tscn"
+leads_to_scene = "res://levels/CottageMiddle.tscn"
 locked = true
 door_number = 2
 spawn_loc = NodePath("Spawner")
@@ -158,5 +161,37 @@ dialogue_resource = ExtResource("13_d5x7f")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="LabelCanvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="LabelCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LabelCanvas/Control"]
+clip_contents = false
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 0.415686)
+theme_override_fonts/normal_font = ExtResource("10_76ajn")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,5 +1,8 @@
 class_name CustomScene extends Node2D
 
+@export var scene_name:String
+@export var scene_name_label:RichTextLabel
+
 @export var spawn_point:Node2D
 @export var player:Player
 @export var scene_data:SceneData
@@ -20,7 +23,8 @@ func _ready():
 	initialize()
 
 func initialize():
-	
+	if(scene_name):
+		scene_name_label.text = scene_name
 	if(not (Globals.scene_data)):
 		Globals.scene_data = SceneData.new()
 	scene_data = Globals.scene_data

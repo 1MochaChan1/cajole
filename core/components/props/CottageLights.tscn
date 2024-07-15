@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkmlxej3ra7jm"]
+[gd_scene load_steps=5 format=3 uid="uid://dkmlxej3ra7jm"]
 
 [ext_resource type="Script" path="res://core/components/props/cottage_lights.gd" id="1_gtfn7"]
+[ext_resource type="AudioStream" uid="uid://dqjf6x3nj6i4s" path="res://assets/sounds/sfx_lights_flickering.mp3" id="2_q1d5t"]
 
 [sub_resource type="Gradient" id="Gradient_nh2ss"]
 colors = PackedColorArray(0.904528, 0.824611, 0.357515, 1, 0.0273973, 0.0273973, 0.0273973, 1)
@@ -16,3 +17,10 @@ energy = 1.53
 texture = SubResource("GradientTexture2D_qmhl3")
 texture_scale = 3.02
 script = ExtResource("1_gtfn7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_q1d5t")
+volume_db = -25.0
+
+[node name="AudioTimer" type="Timer" parent="."]
+one_shot = true
