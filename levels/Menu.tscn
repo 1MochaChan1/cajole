@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbljkhibcw7wj"]
+[gd_scene load_steps=10 format=3 uid="uid://bbljkhibcw7wj"]
 
 [ext_resource type="Script" path="res://levels/menu.gd" id="1_0vi0u"]
 [ext_resource type="Shader" path="res://assets/ui/scrolling_menu.gdshader" id="2_70kw7"]
 [ext_resource type="Texture2D" uid="uid://deiiurm62nikw" path="res://assets/ui/menu_background.png" id="3_ocjww"]
+[ext_resource type="AudioStream" uid="uid://dy3jw2y1ha7pm" path="res://assets/sounds/music_menu.mp3" id="4_sjt8i"]
+[ext_resource type="AudioStream" uid="uid://cxg3thhelokv4" path="res://assets/sounds/sfx_car_crash.mp3" id="5_bon54"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jndqp"]
 shader = ExtResource("2_70kw7")
@@ -107,4 +109,16 @@ libraries = {
 "": SubResource("AnimationLibrary_g1fw8")
 }
 
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sjt8i")
+volume_db = -15.0
+autoplay = true
+
+[node name="CarCrash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_bon54")
+volume_db = -30.0
+
+[node name="CrashSoundEnd" type="Timer" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="timeout" from="CrashSoundEnd" to="." method="_on_crash_sound_end_timeout"]

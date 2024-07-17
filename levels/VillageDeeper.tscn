@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://8nueph2myqfw"]
+[gd_scene load_steps=25 format=3 uid="uid://8nueph2myqfw"]
 
 [ext_resource type="Script" path="res://levels/village_deeper.gd" id="1_qj38e"]
 [ext_resource type="Script" path="res://core/resources/scene_data.gd" id="2_s4ee0"]
@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="7_f52c4"]
 [ext_resource type="PackedScene" uid="uid://bbsqsg253fdlg" path="res://core/components/props/Lamp.tscn" id="7_uvlue"]
 [ext_resource type="Texture2D" uid="uid://c4jky4ccutd4a" path="res://assets/sprites/environment/house2.tres" id="8_4oxsw"]
-[ext_resource type="Texture2D" uid="uid://btukgukenvnap" path="res://assets/sprites/character/stranger_text.tres" id="10_leq8q"]
 [ext_resource type="PackedScene" uid="uid://d1450fjlney6r" path="res://core/dialogues/Actionable.tscn" id="11_3e4vg"]
+[ext_resource type="Texture2D" uid="uid://bw4atb0mwgvcw" path="res://assets/sprites/character/the_man_text.tres" id="11_7pr53"]
 [ext_resource type="Resource" uid="uid://cmlg74fj81wu8" path="res://core/dialogues/man.dialogue" id="11_ysuec"]
 [ext_resource type="PackedScene" uid="uid://c135ki1wh8yif" path="res://levels/CottageEntrance.tscn" id="12_fvir4"]
 [ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="16_auaoy"]
@@ -21,6 +21,44 @@
 script = ExtResource("2_s4ee0")
 keys_on_player = Array[int]([])
 spawn_door_no = 0
+
+[sub_resource type="Animation" id="Animation_yy7km"]
+resource_name = "idle"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 8, 9, 10, 11, 12, 13, 14, 15, 15, 15]
+}
+
+[sub_resource type="Animation" id="Animation_a6d3e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7gal2"]
+_data = {
+"RESET": SubResource("Animation_a6d3e"),
+"idle": SubResource("Animation_yy7km")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6lkw"]
 size = Vector2(12, 16)
@@ -163,11 +201,18 @@ position = Vector2(777, 45)
 rotation = 3.03731
 scale = Vector2(1.5, -1.5)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_7gal2")
+}
+
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 position = Vector2(178, 11)
-texture = ExtResource("10_leq8q")
+texture = ExtResource("11_7pr53")
 hframes = 8
 vframes = 2
+frame = 8
 
 [node name="Actionable" parent="Platform/Sprite2D" instance=ExtResource("11_3e4vg")]
 dialogue_resource = ExtResource("11_ysuec")

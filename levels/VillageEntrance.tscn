@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://davg5vfbwe3ol"]
+[gd_scene load_steps=22 format=3 uid="uid://davg5vfbwe3ol"]
 
 [ext_resource type="Script" path="res://levels/village_entrance.gd" id="1_orgjk"]
 [ext_resource type="Texture2D" uid="uid://rgyqvs035oxq" path="res://assets/sprites/environment/house1.tres" id="2_5ola1"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dh8vp3rcmjxa8" path="res://core/components/doors/Door.tscn" id="10_kp8rf"]
 [ext_resource type="AudioStream" uid="uid://5cpbt85pr0xs" path="res://assets/sounds/sfx_forest_walk.mp3" id="11_2s68j"]
 [ext_resource type="FontFile" uid="uid://cdqwfc7troc3" path="res://assets/ui/m3x6.ttf" id="13_swafy"]
+[ext_resource type="Texture2D" uid="uid://bo033ux2iyrb" path="res://assets/sprites/environment/car.png" id="15_f3ypj"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_cn208"]
 
@@ -25,6 +26,44 @@ b = Vector2(0, 80.5)
 [sub_resource type="Environment" id="Environment_qyx8m"]
 background_mode = 3
 
+[sub_resource type="Animation" id="Animation_lrdmd"]
+resource_name = "car_crash"
+length = 2.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CarCrash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_7fug2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CarCrash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_unbm5"]
+_data = {
+"RESET": SubResource("Animation_7fug2"),
+"car_crash": SubResource("Animation_lrdmd")
+}
+
 [node name="VillageEntrance" type="Node2D" node_paths=PackedStringArray("scene_name_label", "spawn_point", "camera_bounds_tl", "camer_bounds_br", "walking_sound")]
 script = ExtResource("1_orgjk")
 scene_name = "Crash Site"
@@ -34,6 +73,11 @@ camera_bounds_tl = NodePath("CameraBounds/TopLeft")
 camer_bounds_br = NodePath("CameraBounds/BottomRight")
 walking_sound = NodePath("AudioStreamPlayer2D")
 ambience_mp3 = ExtResource("2_5t14n")
+
+[node name="CarCrash" type="Sprite2D" parent="."]
+position = Vector2(33.8546, 57.1392)
+texture = ExtResource("15_f3ypj")
+hframes = 12
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_2s68j")
@@ -88,7 +132,7 @@ energy = 0.95
 blend_mode = 2
 
 [node name="Lamp" parent="Platform/Lights" instance=ExtResource("4_l6fws")]
-position = Vector2(336.92, 47.7341)
+position = Vector2(371.617, 47.7341)
 rotation = 3.14159
 scale = Vector2(-1.25, -1.5)
 
@@ -245,3 +289,9 @@ theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 fit_content = true
 autowrap_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_unbm5")
+}
+autoplay = "car_crash"

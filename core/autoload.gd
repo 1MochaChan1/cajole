@@ -21,7 +21,7 @@ enum specs {
 # Add all the special execs at the start.
 func _init():
 	ambience_player = AudioStreamPlayer2D.new()
-	ambience_player.volume_db = -15.0
+	ambience_player.volume_db = -10.0
 	add_child(ambience_player)
 	for x in range(len(specs)):
 		spec_execs_list.append(x)
